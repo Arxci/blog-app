@@ -6,7 +6,7 @@ import { siteConfig } from '@/config/site'
 
 export const MainHeader = () => {
 	return (
-		<header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background">
+		<header className="top-0 z-50 w-full border-b border-border/40 bg-background">
 			<div className="container h-16 flex items-center">
 				<div className="flex items-center ">
 					<Link

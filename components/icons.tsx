@@ -1,8 +1,16 @@
-import { Moon, Search, Sun, X } from 'lucide-react'
+import {
+	CirclePlus,
+	Flame,
+	Moon,
+	Search,
+	Sun,
+	TrendingUpIcon,
+	X,
+} from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
-interface IconProps {
+export interface IconProps {
 	className?: string
 }
 
@@ -41,6 +49,24 @@ export const Icons = {
 	),
 	cross: (props: IconProps) => (
 		<X
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	flame: (props: IconProps) => (
+		<Flame
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	trendingUp: (props: IconProps) => (
+		<TrendingUpIcon
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	circlePlus: (props: IconProps) => (
+		<CirclePlus
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

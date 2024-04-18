@@ -42,9 +42,9 @@ export const SearchInput = () => {
 									type="button"
 									variant="ghost"
 									size="icon"
-									className="p-0 max-w-max max-h-max"
+									className="p-0 w-auto h-auto flex items-center justify-center   "
 								>
-									<Icons.cross className="text-muted-foreground group-focus-within:text-foreground " />
+									<Icons.cross className="text-muted-foreground hover:text-muted-foreground/80 group-focus-within:text-foreground group-focus-within:hover:text-foreground/80" />
 									<span className="sr-only">Clear search</span>
 								</Button>
 							)}
