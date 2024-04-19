@@ -111,7 +111,7 @@ export const AnimatedTabs = ({
 					{value === i && (
 						<motion.div
 							layoutId="active-pill"
-							className="bg-black absolute inset-0"
+							className="bg-foreground absolute inset-0"
 							style={{ borderRadius: 9999 }}
 						/>
 					)}
