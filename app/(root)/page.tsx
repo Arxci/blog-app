@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { SearchBar } from '@/components/search-bar'
+import { SearchBar } from '@/components/search/search-bar'
 
 export default function HomePage() {
 	return (
@@ -11,10 +11,11 @@ export default function HomePage() {
 					className="object-cover"
 					priority
 					quality={50}
+					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"
 					src="/images/home/home-banner.jpg"
 					alt="Banner"
 				/>
-				<div className="absolute bg-black/40 w-full h-full top-0 left-0  supports-[backdrop-filter]:backdrop-blur-[1px]" />
+				<div className="absolute bg-black/40 w-full h-full top-0 left-0" />
 			</div>
 			<SearchBar />
 		</main>

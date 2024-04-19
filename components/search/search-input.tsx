@@ -2,10 +2,10 @@
 
 import { ChangeEvent, useState } from 'react'
 
-import { Input } from './ui/input'
-import { Button } from './ui/button'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
 
-import { Icons } from './icons'
+import { Icons } from '../icons'
 
 export const SearchInput = () => {
 	const [search, setSearch] = useState<string>('')
@@ -15,8 +15,8 @@ export const SearchInput = () => {
 	}
 
 	return (
-		<div className=" w-full">
-			<form className="grid grid-cols-[1fr_auto] gap-2 w-full">
+		<div className="w-full ">
+			<form className="grid sm:grid-cols-[1fr_auto] gap-2 w-full">
 				<div className="group">
 					<div className="border border-input rounded-full group-hover:bg-muted focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
 						<div className="px-3 grid grid-cols-[auto_1fr_auto] items-center gap-2">
@@ -54,6 +54,7 @@ export const SearchInput = () => {
 				<Button
 					type="submit"
 					radius="full"
+					className="hidden sm:block"
 				>
 					Search
 				</Button>

@@ -3,6 +3,7 @@ import {
 	Flame,
 	Moon,
 	Search,
+	SlidersHorizontal,
 	Sun,
 	TrendingUpIcon,
 	X,
@@ -67,6 +68,12 @@ export const Icons = {
 	),
 	circlePlus: (props: IconProps) => (
 		<CirclePlus
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	filter: (props: IconProps) => (
+		<SlidersHorizontal
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

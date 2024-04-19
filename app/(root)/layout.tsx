@@ -1,4 +1,5 @@
 import { MainHeader } from '@/components/layout/main-header'
+import { FiltersProvider } from '@/providers/filtersProvider'
 
 export default function HomeLayout({
 	children,
@@ -8,7 +9,7 @@ export default function HomeLayout({
 	return (
 		<div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
 			<MainHeader />
-			{children}
+			<FiltersProvider>{children}</FiltersProvider>
 		</div>
 	)
 }
