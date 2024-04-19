@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import { siteConfig } from '@/config/site'
 import { fontSans } from '@/lib/fonts'
@@ -9,6 +9,13 @@ import '@/styles/globals.css'
 export const metadata: Metadata = {
 	title: siteConfig.name,
 	description: siteConfig.description,
+}
+
+export const viewport: Viewport = {
+	themeColor: [
+		{ media: '(prefers-color-scheme: light)', color: 'white' },
+		{ media: '(prefers-color-scheme: dark)', color: 'black' },
+	],
 }
 
 export default function RootLayout({
@@ -23,7 +30,7 @@ export default function RootLayout({
 		>
 			<body
 				className={cn(
-					'min-h-screen bg-background font-sans antialiased ',
+					'min-h-screen bg-background antialiased',
 					fontSans.variable
 				)}
 			>

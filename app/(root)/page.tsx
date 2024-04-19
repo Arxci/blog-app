@@ -4,7 +4,7 @@ import { SearchBar } from '@/components/search/search-bar'
 
 export default function HomePage() {
 	return (
-		<main>
+		<main className="bg-background">
 			<div className="container relative w-full h-[400px] overflow-hidden">
 				<Image
 					fill
