@@ -28,98 +28,10 @@ export function QueryPagination({
 	const prevPage = currentPage - 1
 	const nextPage = currentPage + 1
 
-	const siblingCount = 0
-
 	const createPageURL = (pageNumber: number | string) => {
 		const params = new URLSearchParams(searchParams)
 		params.set('page', pageNumber.toString())
 		return `${pathname}?${params.toString()}`
-	}
-
-	const paginationItems = []
-
-	if (1 < currentPage - siblingCount) {
-		paginationItems.push(
-			<PaginationLinkItem
-				currentPage={currentPage}
-				index={1}
-				key={1}
-				createPageURL={createPageURL}
-			/>
-		)
-
-		if (siblingCount + 3 < currentPage) {
-			paginationItems.push(<PaginationEllipsis key={'page-start'} />)
-		} else if (siblingCount + 2 < currentPage) {
-			paginationItems.push(
-				<PaginationLinkItem
-					currentPage={currentPage}
-					index={2}
-					key={2}
-					createPageURL={createPageURL}
-				/>
-			)
-		}
-	}
-
-	for (
-		// is current page to close to first page?
-		let ii = 0 < currentPage - siblingCount ? currentPage - siblingCount : 1;
-		ii < currentPage;
-		ii++
-	) {
-		paginationItems.push(
-			<PaginationLinkItem
-				currentPage={currentPage}
-				index={ii}
-				key={ii}
-				createPageURL={createPageURL}
-			/>
-		)
-	}
-
-	// get siblingCount after
-	for (
-		let ii = currentPage;
-		// is end of increment greater than or equal to the total number of pages?
-		//prettier-ignore
-		ii <=
-		((totalPages >= currentPage + siblingCount)
-			? (currentPage + siblingCount)
-			: totalPages);
-		ii++
-	) {
-		paginationItems.push(
-			<PaginationLinkItem
-				currentPage={currentPage}
-				key={ii}
-				index={ii}
-				createPageURL={createPageURL}
-			/>
-		)
-	}
-
-	if (totalPages > currentPage + siblingCount) {
-		if (totalPages - siblingCount - 2 > currentPage) {
-			paginationItems.push(<PaginationEllipsis key={'page-end'} />)
-		} else if (totalPages - siblingCount - 1 > currentPage) {
-			paginationItems.push(
-				<PaginationLinkItem
-					currentPage={currentPage}
-					index={totalPages - 1}
-					key={totalPages - 1}
-					createPageURL={createPageURL}
-				/>
-			)
-		}
-		paginationItems.push(
-			<PaginationLinkItem
-				currentPage={currentPage}
-				index={totalPages}
-				key={totalPages}
-				createPageURL={createPageURL}
-			/>
-		)
 	}
 
 	return (
@@ -131,9 +43,6 @@ export function QueryPagination({
 						href={createPageURL(prevPage)}
 					/>
 				</PaginationItem>
-				<div className="hidden sm:flex">
-					{paginationItems.map((item) => item)}
-				</div>
 
 				<PaginationItem>
 					<PaginationNext

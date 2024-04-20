@@ -1,6 +1,8 @@
 import {
 	CirclePlus,
+	Component,
 	Flame,
+	Menu,
 	Moon,
 	Search,
 	SlidersHorizontal,
@@ -22,8 +24,20 @@ export const Icons = {
 			className={cn('w-4 h-4', props.className)}
 		/>
 	),
+	logo: (props: IconProps) => (
+		<Component
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
 	moon: (props: IconProps) => (
 		<Moon
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	hamburger: (props: IconProps) => (
+		<Menu
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

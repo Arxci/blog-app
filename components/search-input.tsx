@@ -2,10 +2,10 @@
 
 import { ChangeEvent, useState } from 'react'
 
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
 
-import { Icons } from '../icons'
+import { Icons } from './icons'
 
 export const SearchInput = () => {
 	const [search, setSearch] = useState<string>('')
@@ -15,12 +15,12 @@ export const SearchInput = () => {
 	}
 
 	return (
-		<div className="w-full ">
+		<div className="w-full">
 			<form className="grid sm:grid-cols-[1fr_auto] gap-2 w-full">
 				<div className="group">
-					<div className="border border-input rounded-full group-hover:bg-muted focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
-						<div className="px-3 grid grid-cols-[auto_1fr_auto] items-center gap-2">
-							<Icons.search className="text-muted-foreground group-focus-within:text-foreground" />
+					<div className="border border-input rounded-full group-hover:bg-muted focus-within:ring-2 focus-within:ring-ring bg-background focus-within:ring-offset-2">
+						<div className="pl-3 grid grid-cols-[auto_1fr_auto]  items-center gap-2">
+							<Icons.search className="text-muted-foreground group-focus-within:text-foreground  " />
 							<label
 								htmlFor="search"
 								className="sr-only"
@@ -32,8 +32,8 @@ export const SearchInput = () => {
 								type="text"
 								name="search"
 								autoComplete="off"
-								placeholder="Search..."
-								className="bg-transparent border-none placeholder:text-lg text-lg px-0 focus-visible:ring-offset-0 focus-visible:ring-0"
+								placeholder="Search for a post..."
+								className="bg-transparent h-auto border-none placeholder:text-sm text-sm px-0 focus-visible:ring-offset-0 focus-visible:ring-0"
 								value={search}
 								onChange={inputChangeHandle}
 							/>
@@ -48,16 +48,16 @@ export const SearchInput = () => {
 									<span className="sr-only">Clear search</span>
 								</Button>
 							)}
+							<Button
+								type="submit"
+								radius="full"
+								className="sm:px-6"
+							>
+								Search
+							</Button>
 						</div>
 					</div>
 				</div>
-				<Button
-					type="submit"
-					radius="full"
-					className="hidden sm:block"
-				>
-					Search
-				</Button>
 			</form>
 		</div>
 	)

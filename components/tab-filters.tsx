@@ -2,11 +2,9 @@
 
 import { useContext } from 'react'
 
-import { AnimatedTabs } from '../ui/animated-tabs'
+import { AnimatedTabs } from './ui/animated-tabs'
 
-import { SearchDropdown } from './search-dropdown'
-
-import { Icons } from '../icons'
+import { Icons } from './icons'
 import { FiltersContext } from '@/store/filters-context'
 
 const filterOptions = [
@@ -31,21 +29,10 @@ export const SearchFilters = () => {
 	const filtersContext = useContext(FiltersContext)
 
 	return (
-		<>
-			<div className="hidden md:block">
-				<AnimatedTabs
-					tabs={filterOptions}
-					valueFromProps={filtersContext.activeFilter}
-					onChangeFromProps={filtersContext.setActiveFilter}
-				/>
-			</div>
-			<div className="md:hidden">
-				<SearchDropdown
-					options={filterOptions}
-					value={filtersContext.activeFilter}
-					onValueChanged={filtersContext.setActiveFilter}
-				/>
-			</div>
-		</>
+		<AnimatedTabs
+			tabs={filterOptions}
+			valueFromProps={filtersContext.activeFilter}
+			onChangeFromProps={filtersContext.setActiveFilter}
+		/>
 	)
 }

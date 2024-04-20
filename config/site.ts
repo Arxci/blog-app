@@ -1,13 +1,22 @@
-export const siteConfig: SiteConfig = {
+export const siteConfig = {
 	name: 'Blog App',
 	description: 'Blog app created with NextJS',
 	url: 'https://example.com',
 	author: 'Garrett Humbert',
+	links: [
+		{
+			name: 'Home',
+			href: '/',
+		},
+		{
+			name: 'Blog',
+			href: '/blog',
+		},
+		{
+			name: 'About',
+			href: '/about',
+		},
+	],
 }
 
-interface SiteConfig {
-	name: string
-	description: string
-	url: string
-	author: string
-}
+export type SiteConfigType = typeof siteConfig

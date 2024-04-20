@@ -105,7 +105,7 @@ export const AnimatedTabs = ({
 					onClick={() => buttonClickHandle(i)}
 					onKeyDown={keyDownHandle}
 					className={
-						'relative rounded-full px-4 py-2 text-sm font-medium text-white transition [&>*]:data-[state=inactive]:hover:text-muted-foreground/60 [&>*]:data-[state=inactive]:text-muted-foreground flex gap-1 items-center'
+						'relative rounded-full px-2 sm:px-4 py-2 text-sm font-medium text-white transition [&>*]:data-[state=inactive]:hover:text-muted-foreground/60 [&>*]:data-[state=inactive]:text-muted-foreground flex gap-1 items-center'
 					}
 				>
 					{value === i && (
