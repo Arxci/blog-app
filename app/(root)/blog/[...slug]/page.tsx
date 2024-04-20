@@ -1,5 +1,5 @@
-import { Post, posts } from '#site/content'
-import { MDXContent } from '@/components/mdx-components'
+import { posts } from '#site/content'
+import { MDXContent } from '@/components/mdx/mdx-components'
 import { notFound } from 'next/navigation'
 
 interface PostPageProps {
@@ -29,7 +29,7 @@ export default async function PostPage({ params }: PostPageProps) {
 	}
 
 	return (
-		<article className="container py-6 prose dark:prose-invert max-w-3xl mx-auto">
+		<article className="container py-6 max-w-3xl mx-auto overflow-x-hidden">
 			<h1 className="mb-2">{post.title}</h1>
 			{post.description ? (
 				<p className="text-lg mt-0 text-muted-foreground">{post.description}</p>

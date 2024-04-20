@@ -6,7 +6,7 @@ import { siteConfig } from '@/config/site'
 
 export const MainHeader = () => {
 	return (
-		<header className="top-0 z-50 w-full border-b border-border/40 bg-background">
+		<header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
 			<div className="container h-16 flex items-center">
 				<div className="flex items-center">
 					<Link
@@ -17,12 +17,7 @@ export const MainHeader = () => {
 					</Link>
 				</div>
 				<div className="ml-auto">
-					<Button
-						variant="shadow"
-						radius="full"
-					>
-						Sign In
-					</Button>
+					<Button radius="full">Sign In</Button>
 				</div>
 			</div>
 		</header>

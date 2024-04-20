@@ -1,4 +1,8 @@
 import { defineConfig, defineCollection, s } from 'velite'
+import rehypeSlug from 'rehype-slug'
+import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import { visit } from 'unist-util-visit'
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
 	...data,
@@ -32,7 +36,42 @@ export default defineConfig({
 	},
 	collections: { posts },
 	mdx: {
-		rehypePlugins: [],
+		rehypePlugins: [
+			() => (tree) => {
+				visit(tree, (node) => {
+					if (node?.type === 'element' && node?.tagName === 'pre') {
+						const [codeEl] = node.children
+
+						if (codeEl.tagName !== 'code') return
+
+						node.raw = codeEl.children?.[0].value
+					}
+				})
+			},
+			rehypeSlug,
+			[rehypePrettyCode, { theme: 'one-dark-pro' }],
+			[
+				rehypeAutolinkHeadings,
+				{
+					behavior: 'wrap',
+					properties: {
+						className: ['subheading-anchor'],
+						ariaLabel: 'Link to section',
+					},
+				},
+			],
+			() => (tree) => {
+				visit(tree, (node) => {
+					if (node?.type === 'element' && node?.tagName === 'figure') {
+						const preElement = node.children.at(-1)
+
+						if (preElement.tagName !== 'pre') return
+
+						preElement.properties['raw'] = node.raw
+					}
+				})
+			},
+		],
 		remarkPlugins: [],
 	},
 })
