@@ -14,12 +14,16 @@ export const SearchInput = () => {
 		setSearch(e.target.value)
 	}
 
+	const clearInputHandle = () => {
+		setSearch('')
+	}
+
 	return (
 		<div className="w-full">
 			<form className="grid sm:grid-cols-[1fr_auto] gap-2 w-full">
 				<div className="group">
 					<div className="border border-input rounded-full group-hover:bg-muted focus-within:ring-2 focus-within:ring-ring bg-background focus-within:ring-offset-2">
-						<div className="pl-3 grid grid-cols-[auto_1fr_auto]  items-center gap-2">
+						<div className="pl-3 flex items-center gap-2">
 							<Icons.search className="text-muted-foreground group-focus-within:text-foreground  " />
 							<label
 								htmlFor="search"
@@ -41,6 +45,7 @@ export const SearchInput = () => {
 								<Button
 									type="button"
 									variant="ghost"
+									onClick={clearInputHandle}
 									size="icon"
 									className="p-0 w-auto h-auto flex items-center justify-center   "
 								>

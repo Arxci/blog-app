@@ -9,6 +9,7 @@ import {
 	Sun,
 	TrendingUpIcon,
 	X,
+	Calendar,
 } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -20,6 +21,12 @@ export interface IconProps {
 export const Icons = {
 	sun: (props: IconProps) => (
 		<Sun
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	calendar: (props: IconProps) => (
+		<Calendar
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

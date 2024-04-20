@@ -10,15 +10,17 @@ import { SearchFilters } from '@/components/tab-filters'
 import { PageSectionContainer } from '@/components/page-section-container'
 
 import { sortPosts } from '@/lib/utils'
+import { FeaturedPost } from '@/components/featured-post'
 
 export default async function HomePage() {
 	const sortedPost = sortPosts(posts.filter((post) => post.published))
+	const featuredPosts = sortedPost.filter((post) => post.isFeatured).slice(0, 2)
 
 	const displayPosts = sortedPost
 
 	return (
 		<main className="bg-background">
-			<PageSectionContainer className="relative w-full mb-14 h-[400px] overflow-hidden md:rounded-b-lg">
+			<PageSectionContainer className="relative w-full mb-14 h-[400px] overflow-hidden lg:rounded-b-lg">
 				<Image
 					fill
 					className="object-cover object-bottom"
@@ -53,13 +55,27 @@ export default async function HomePage() {
 					<SearchFilters />
 				</div>
 				<Separator className="mb-4 mt-1" />
-				<ul className="flex flex-col">
-					{displayPosts.map((post) => (
-						<li key={post.slug}>
-							<PostItem {...post} />
-						</li>
-					))}
-				</ul>
+				<div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
+					<ul className="flex flex-col col-span-2 gap-4 mb-6 lg:mb-0">
+						{displayPosts.map((post) => (
+							<li key={post.slug}>
+								<PostItem {...post} />
+							</li>
+						))}
+					</ul>
+					<div className="flex flex-col ">
+						<h3 className="font-semibold text-xl md:text-2xl lg:text-3xl mb-6">
+							Featured Posts
+						</h3>
+						<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+							{featuredPosts.map((post) => (
+								<li key={post.slug}>
+									<FeaturedPost {...post} />
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
 			</PageSectionContainer>
 		</main>
 	)

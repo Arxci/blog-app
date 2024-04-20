@@ -1,7 +1,12 @@
-import { Calendar } from 'lucide-react'
-import Link from 'next/link'
 import { FC } from 'react'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
 import { buttonVariants } from './ui/button'
+
+import { Icons } from './icons'
+
 import { cn, formatDate } from '@/lib/utils'
 
 interface PostItemProps {
@@ -9,6 +14,7 @@ interface PostItemProps {
 	title: string
 	description?: string
 	date: string
+	banner: string
 }
 
 export const PostItem: FC<PostItemProps> = ({
@@ -16,9 +22,18 @@ export const PostItem: FC<PostItemProps> = ({
 	title,
 	description,
 	date,
+	banner,
 }) => {
 	return (
-		<article className="flex flex-col gap-2 border-border border-b py-3">
+		<div className="flex flex-col gap-2 border-border border-b ">
+			<div className="aspect-video relative">
+				<Image
+					src={banner}
+					alt={title}
+					className="object-cover"
+					fill
+				/>
+			</div>
 			<div>
 				<h2 className="text-2xl font-bold">
 					<Link href={slug}>{title}</Link>
@@ -29,7 +44,7 @@ export const PostItem: FC<PostItemProps> = ({
 				<dl>
 					<dt className="sr-only">Published ON</dt>
 					<dd className="text-sm sm:text-base font-medium flex items-center gap-1">
-						<Calendar className="h-4 w-4" />{' '}
+						<Icons.calendar />
 						<time dateTime={date}>{formatDate(date)}</time>
 					</dd>
 				</dl>
@@ -40,6 +55,6 @@ export const PostItem: FC<PostItemProps> = ({
 					Read more
 				</Link>
 			</div>
-		</article>
+		</div>
 	)
 }
