@@ -39,7 +39,7 @@ export const FeaturedPost = ({
 					</Link>
 					<p className="text-white/80 line-clamp-2">{description}</p>
 				</div>
-				<div className="absolute w-full h-16 transition-none bottom-0 bg-black/80  group-hover:bg-black duration-700 group-focus-within:bg-black border-t border-border/40 flex items-center justify-between px-3">
+				<div className="absolute w-full h-16 transition-all bottom-0 bg-black/80  group-hover:bg-black duration-300  group-focus-within:bg-black border-t border-border/40 flex items-center justify-between px-3">
 					<dl>
 						<dt className="sr-only">Published ON</dt>
 						<dd className="text-sm text-white/80 font-medium flex items-center gap-1">

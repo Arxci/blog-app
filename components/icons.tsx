@@ -10,6 +10,9 @@ import {
 	TrendingUpIcon,
 	X,
 	Calendar,
+	MessageCircle,
+	ThumbsDown,
+	ThumbsUp,
 } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -21,6 +24,24 @@ export interface IconProps {
 export const Icons = {
 	sun: (props: IconProps) => (
 		<Sun
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	message: (props: IconProps) => (
+		<MessageCircle
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	like: (props: IconProps) => (
+		<ThumbsUp
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	dislike: (props: IconProps) => (
+		<ThumbsDown
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

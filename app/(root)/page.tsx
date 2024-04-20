@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator'
 
 import { PostItem } from '@/components/post-item'
 import { SearchInput } from '@/components/search-input'
-import { SearchFilters } from '@/components/tab-filters'
+import { TabFilters } from '@/components/tab-filters'
 import { PageSectionContainer } from '@/components/page-section-container'
 
 import { sortPosts } from '@/lib/utils'
@@ -52,7 +52,7 @@ export default async function HomePage() {
 					Trending Posts!
 				</h2>
 				<div className="flex items-center gap-2 md:gap-4 h-14">
-					<SearchFilters />
+					<TabFilters />
 				</div>
 				<Separator className="mb-4 mt-1" />
 				<div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
@@ -63,7 +63,7 @@ export default async function HomePage() {
 							</li>
 						))}
 					</ul>
-					<div className="flex flex-col ">
+					<div className="flex flex-col">
 						<h3 className="font-semibold text-xl md:text-2xl lg:text-3xl mb-6">
 							Featured Posts
 						</h3>

@@ -3,6 +3,7 @@ import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { visit } from 'unist-util-visit'
+import prismaDB from './lib/prisma'
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
 	...data,
@@ -75,5 +76,20 @@ export default defineConfig({
 			},
 		],
 		remarkPlugins: [],
+	},
+	complete: async (data) => {
+		const { posts } = data
+
+		for (let i = 0; i < posts.length; i++) {
+			const post = posts[i]
+
+			if (post) {
+				await prismaDB.post.upsert({
+					create: { slug: post.slug },
+					update: {},
+					where: { slug: post.slug },
+				})
+			}
+		}
 	},
 })

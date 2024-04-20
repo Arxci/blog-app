@@ -7,7 +7,7 @@ import { AnimatedTabs } from './ui/animated-tabs'
 import { Icons } from './icons'
 import { FiltersContext } from '@/store/filters-context'
 
-const filterOptions = [
+const tabOptions = [
 	{
 		id: 'popular',
 		label: 'Popular',
@@ -25,12 +25,12 @@ const filterOptions = [
 	},
 ]
 
-export const SearchFilters = () => {
+export const TabFilters = () => {
 	const filtersContext = useContext(FiltersContext)
 
 	return (
 		<AnimatedTabs
-			tabs={filterOptions}
+			tabs={tabOptions}
 			valueFromProps={filtersContext.activeFilter}
 			onChangeFromProps={filtersContext.setActiveFilter}
 		/>
