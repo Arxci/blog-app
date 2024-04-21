@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server'
+
 import NextAuth from 'next-auth'
 
 import authConfig from './auth.config'
@@ -10,11 +12,11 @@ export default auth((req) => {
 	const isSignedIn = !!req.auth
 
 	if (protectedRoutes.includes(nextUrl.pathname) && !isSignedIn) {
-		return Response.redirect(new URL('/sign-in', nextUrl))
+		return NextResponse.redirect(new URL('/sign-in', nextUrl))
 	}
 
 	if (loginRoutes.includes(nextUrl.pathname) && isSignedIn) {
-		return Response.redirect(new URL(DEFAULT_SIGNIN_REDIRECT, nextUrl))
+		return NextResponse.redirect(new URL(DEFAULT_SIGNIN_REDIRECT, nextUrl))
 	}
 })
 
