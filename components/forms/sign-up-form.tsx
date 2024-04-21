@@ -23,7 +23,7 @@ import { FormError } from '../form-error'
 
 import { SignUpSchema } from '@/schemas'
 
-import { signIn } from '@/actions/sign-in'
+import { signUp } from '@/actions/sign-up'
 
 export const SignUpForm = () => {
 	const [isPending, startTransition] = useTransition()
@@ -39,7 +39,7 @@ export const SignUpForm = () => {
 
 	const handleSubmit = (values: z.infer<typeof SignUpSchema>) => {
 		startTransition(() => {
-			signIn(values).then((data) => {})
+			signUp(values).then((data) => {})
 		})
 	}
 
@@ -116,7 +116,7 @@ export const SignUpForm = () => {
 						type="submit"
 						className="w-full"
 					>
-						Sign in
+						Sign up
 					</Button>
 				</form>
 			</Form>
