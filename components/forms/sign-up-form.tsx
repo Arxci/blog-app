@@ -6,6 +6,7 @@ import * as z from 'zod'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 
 import {
 	Form,
@@ -39,7 +40,13 @@ export const SignUpForm = () => {
 
 	const handleSubmit = (values: z.infer<typeof SignUpSchema>) => {
 		startTransition(() => {
-			signUp(values).then((data) => {})
+			signUp(values).then((data) => {
+				if (data.error) {
+					toast.error(data.error)
+				} else if (data.success) {
+					toast.success(data.success)
+				}
+			})
 		})
 	}
 

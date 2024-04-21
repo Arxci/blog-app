@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 
+import { Toaster } from '@/components/ui/sonner'
+
 import { siteConfig } from '@/config/site'
 import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
@@ -35,6 +37,7 @@ export default function RootLayout({
 				)}
 			>
 				{children}
+				<Toaster />
 			</body>
 		</html>
 	)
