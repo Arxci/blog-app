@@ -19,7 +19,7 @@ export default async function HomePage() {
 	const displayPosts = sortedPost
 
 	return (
-		<main className="bg-background">
+		<main>
 			<PageSectionContainer className="relative w-full mb-14 h-[400px] overflow-hidden lg:rounded-b-lg">
 				<Image
 					fill

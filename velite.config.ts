@@ -80,6 +80,7 @@ export default defineConfig({
 	complete: async (data) => {
 		const { posts } = data
 
+		// Add local MDX file to DB
 		for (let i = 0; i < posts.length; i++) {
 			const post = posts[i]
 
@@ -91,5 +92,16 @@ export default defineConfig({
 				})
 			}
 		}
+
+		// Delete locally removed MDX files from the DB
+		const postsSlugs = posts.map((post) => post.slug)
+
+		await prismaDB.post.deleteMany({
+			where: {
+				slug: {
+					notIn: postsSlugs,
+				},
+			},
+		})
 	},
 })

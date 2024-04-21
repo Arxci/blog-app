@@ -34,10 +34,13 @@ export const DesktopNav = () => {
 				<Button
 					radius="full"
 					variant="link"
+					asChild
 				>
-					Login
+					<Link href="/sign-in">Sign in</Link>
 				</Button>
-				<Button radius="full">Sign up</Button>
+				<Button radius="full">
+					<Link href="/sign-up">Sign up</Link>
+				</Button>
 			</div>
 		</div>
 	)

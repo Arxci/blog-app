@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 
 interface PageSectionContainerProps {
 	className?: string
-	children: ReactNode
+	children?: ReactNode
 }
 
 export const PageSectionContainer = ({

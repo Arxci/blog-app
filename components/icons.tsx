@@ -13,7 +13,11 @@ import {
 	MessageCircle,
 	ThumbsDown,
 	ThumbsUp,
+	TriangleAlert,
 } from 'lucide-react'
+
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
 
 import { cn } from '@/lib/utils'
 
@@ -24,6 +28,24 @@ export interface IconProps {
 export const Icons = {
 	sun: (props: IconProps) => (
 		<Sun
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	triangleAlert: (props: IconProps) => (
+		<TriangleAlert
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	google: (props: IconProps) => (
+		<FcGoogle
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	github: (props: IconProps) => (
+		<FaGithub
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>
