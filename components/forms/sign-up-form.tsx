@@ -42,7 +42,7 @@ export const SignUpForm = () => {
 		startTransition(() => {
 			signUp(values).then((data) => {
 				if (data.error) {
-					toast.error(data.error)
+					toast.error('Failed to sign up.', { description: data.error })
 				} else if (data.success) {
 					toast.success(data.success)
 				}

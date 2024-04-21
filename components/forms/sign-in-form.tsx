@@ -3,9 +3,9 @@
 import { useTransition } from 'react'
 
 import * as z from 'zod'
-
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 
 import {
 	Form,
@@ -38,7 +38,12 @@ export const SignInForm = () => {
 
 	const handleSubmit = (values: z.infer<typeof SignInSchema>) => {
 		startTransition(() => {
-			signIn(values).then((data) => {})
+			signIn(values).then((data) => {
+				if (data?.error) {
+					console.log(data)
+					toast.error('Failed to sign in.', { description: data.error })
+				}
+			})
 		})
 	}
 
