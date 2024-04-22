@@ -20,7 +20,7 @@ export const signUp = async (values: z.infer<typeof SignUpSchema>) => {
 	const existingUser = await getUserByEmail(email)
 
 	if (existingUser) {
-		return { error: 'Email already taken.' }
+		return { type: 'error', description: 'Email is already taken.' }
 	}
 
 	await prisma?.user.create({
@@ -33,5 +33,5 @@ export const signUp = async (values: z.infer<typeof SignUpSchema>) => {
 
 	// TODO: Send verification token email
 
-	return { success: 'User has been created' }
+	return { type: 'success', description: 'User has been created,' }
 }

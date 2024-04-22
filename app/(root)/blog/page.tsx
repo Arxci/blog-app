@@ -1,7 +1,7 @@
 import { posts } from '#site/content'
 import { PostItem } from '@/components/post-item'
 import { QueryPagination } from '@/components/query-pagination'
-import { sortPosts } from '@/lib/utils'
+import { sortPosts } from '@/lib/post'
 
 const POSTS_PER_PAGE = 5
 
@@ -27,13 +27,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 				<div className="flex-1 space-y-4">
 					<h1 className="inline-block font-black text-4xl lg:text-5xl">Blog</h1>
 					<p className="text-xl text-muted-foreground">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, vel.
+						Exploring web development, one post at a time!
 					</p>
 				</div>
 			</div>
 			<hr className="mt-8" />
 			{displayPosts?.length > 0 ? (
-				<ul className="flex flex-col">
+				<ul className="grid md:grid-cols-2 gap-4 mt-8">
 					{displayPosts.map((post) => (
 						<li key={post.slug}>
 							<PostItem {...post} />

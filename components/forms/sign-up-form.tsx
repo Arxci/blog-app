@@ -41,10 +41,18 @@ export const SignUpForm = () => {
 	const handleSubmit = (values: z.infer<typeof SignUpSchema>) => {
 		startTransition(() => {
 			signUp(values).then((data) => {
-				if (data.error) {
-					toast.error('Failed to sign up.', { description: data.error })
-				} else if (data.success) {
-					toast.success(data.success)
+				switch (data.type) {
+					case 'error':
+						toast.error('Failed to create an account.', { ...data })
+						break
+					case 'success':
+						toast.success('Check your email', { ...data })
+						break
+					default:
+						toast.success('Failed to sign in.', {
+							description: 'Please try again later',
+						})
+						break
 				}
 			})
 		})

@@ -14,6 +14,7 @@ import {
 	ThumbsDown,
 	ThumbsUp,
 	TriangleAlert,
+	Eye,
 } from 'lucide-react'
 
 import { FcGoogle } from 'react-icons/fc'
@@ -28,6 +29,12 @@ export interface IconProps {
 export const Icons = {
 	sun: (props: IconProps) => (
 		<Sun
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	eye: (props: IconProps) => (
+		<Eye
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

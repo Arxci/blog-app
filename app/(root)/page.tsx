@@ -9,7 +9,7 @@ import { SearchInput } from '@/components/search-input'
 import { TabFilters } from '@/components/tab-filters'
 import { PageSectionContainer } from '@/components/page-section-container'
 
-import { sortPosts } from '@/lib/utils'
+import { sortPosts } from '@/lib/post'
 import { FeaturedPost } from '@/components/featured-post'
 
 export default async function HomePage() {

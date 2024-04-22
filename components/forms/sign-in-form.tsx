@@ -37,11 +37,14 @@ export const SignInForm = () => {
 	})
 
 	const handleSubmit = (values: z.infer<typeof SignInSchema>) => {
-		startTransition(() => {
+		startTransition(async () => {
 			signIn(values).then((data) => {
-				if (data?.error) {
-					console.log(data)
-					toast.error('Failed to sign in.', { description: data.error })
+				if (data?.type === 'error') {
+					const { description } = data
+
+					if (description) {
+						toast.error('Failed to sign in.', { description })
+					}
 				}
 			})
 		})

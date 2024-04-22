@@ -7,12 +7,19 @@ import prismaDB from './lib/prisma'
 
 import authConfig from './auth.config'
 
-export const {
-	handlers: { GET, POST },
-	auth,
-	signIn,
-	signOut,
-} = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
+	pages: {
+		signIn: '/sign-in',
+		error: '/error',
+	},
+	events: {
+		async linkAccount({ user }) {
+			await prismaDB.user.update({
+				where: { id: user.id },
+				data: { emailVerified: new Date() },
+			})
+		},
+	},
 	callbacks: {
 		async signIn({ user }) {
 			return true
