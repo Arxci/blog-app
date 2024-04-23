@@ -13,16 +13,20 @@ export const PATCH = async (req: Request) => {
 			})
 		}
 
-		const post = await prismaDB.post.update({
-			where: {
-				slug,
-			},
-			data: {
-				views: { increment: 1 },
-			},
-		})
+		const views =
+			(await prismaDB.post.update({
+				where: {
+					slug,
+				},
+				data: {
+					views: { increment: 1 },
+				},
+				select: {
+					views: true,
+				},
+			})) || 0
 
-		return NextResponse.json(post)
+		return NextResponse.json(views)
 	} catch (error) {
 		console.log('POST_VIEW_PATCH ', error)
 		return new NextResponse('Internal error', { status: 400 })

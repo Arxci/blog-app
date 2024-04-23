@@ -24,3 +24,20 @@ export async function getPostBySlug({
 
 	return post
 }
+
+export async function getPostEngagement(slug: string) {
+	const postEngagement = (await prismaDB.post.findUnique({
+		where: { slug },
+
+		select: {
+			views: true,
+			_count: {
+				select: { likes: true, dislikes: true, comments: true },
+			},
+		},
+	})) || { views: 0, _count: { comments: 0, likes: 0, dislikes: 0 } }
+
+	console.log(postEngagement)
+
+	return postEngagement
+}
