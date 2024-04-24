@@ -8,6 +8,7 @@ import { Button, buttonVariants } from './ui/button'
 
 import { Icons } from './icons'
 import { Comment, Dislike, Like, User } from '@prisma/client'
+import { useRouter } from 'next/navigation'
 
 interface PostEngagementProps {
 	likesFromProps: Like[]
@@ -32,6 +33,8 @@ export const PostEngagement = ({
 	const [comments, setComments] = useState<Comment[]>(commentsFromProps)
 	const [dislikes, setDislikes] = useState<Dislike[]>(dislikesFromProps)
 	const [likes, setLikes] = useState<Like[]>(likesFromProps)
+
+	const router = useRouter()
 
 	const didUserLike =
 		likes.filter((like) => like.userId === user?.id).length > 0
@@ -68,7 +71,11 @@ export const PostEngagement = ({
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application.json' },
 				body: JSON.stringify({ userId: user.id, postId }),
-			}).catch((error) => {})
+			})
+				.catch((error) => {})
+				.finally(() => {
+					router.refresh()
+				})
 		}
 	}
 
@@ -90,7 +97,11 @@ export const PostEngagement = ({
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application.json' },
 				body: JSON.stringify({ userId: user.id, postId }),
-			}).catch((error) => {})
+			})
+				.catch((error) => {})
+				.finally(() => {
+					router.refresh()
+				})
 		}
 	}
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { FiltersContext, FiltersContextProps } from '@/store/filters-context'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export const FiltersProvider = ({
 	children,

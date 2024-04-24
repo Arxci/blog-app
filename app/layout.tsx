@@ -7,6 +7,7 @@ import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 
 import '@/styles/globals.css'
+import { Providers } from '@/providers/providers'
 
 export const metadata: Metadata = {
 	title: siteConfig.name,
@@ -36,8 +37,10 @@ export default function RootLayout({
 					fontSans.variable
 				)}
 			>
-				<Toaster />
-				{children}
+				<Providers>
+					<Toaster />
+					{children}
+				</Providers>
 			</body>
 		</html>
 	)

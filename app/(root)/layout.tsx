@@ -1,5 +1,5 @@
 import { MainHeader } from '@/components/layout/main-header'
-import { FiltersProvider } from '@/providers/filtersProvider'
+import { FiltersProvider } from '@/providers/filters-provider'
 
 export default function HomeLayout({
 	children,
