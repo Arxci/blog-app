@@ -28,8 +28,6 @@ export const PostItem = async ({
 		include: { comments: true, likes: true, dislikes: true },
 	})
 
-	console.log(slug)
-
 	return (
 		<div className="grid grid-rows-[auto_auto_1fr_auto] gap-2 border-border border-b h-full">
 			<div className="aspect-video relative rounded-lg overflow-hidden">

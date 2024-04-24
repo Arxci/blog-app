@@ -30,14 +30,13 @@ export async function getPostEngagement(slug: string) {
 		where: { slug },
 
 		select: {
+			id: true,
 			views: true,
-			_count: {
-				select: { likes: true, dislikes: true, comments: true },
-			},
+			likes: true,
+			comments: true,
+			dislikes: true,
 		},
-	})) || { views: 0, _count: { comments: 0, likes: 0, dislikes: 0 } }
-
-	console.log(postEngagement)
+	})) || { id: '', views: 0, comments: [], likes: [], dislikes: [] }
 
 	return postEngagement
 }
