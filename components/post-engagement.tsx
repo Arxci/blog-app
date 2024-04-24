@@ -49,7 +49,7 @@ export const PostEngagement = ({
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application.json' },
 				body: JSON.stringify({ slug }),
-			}).catch((error) => {})
+			})
 		}
 
 		incrementViewCount()
@@ -71,11 +71,9 @@ export const PostEngagement = ({
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application.json' },
 				body: JSON.stringify({ userId: user.id, postId }),
+			}).finally(() => {
+				router.refresh()
 			})
-				.catch((error) => {})
-				.finally(() => {
-					router.refresh()
-				})
 		}
 	}
 
@@ -97,11 +95,9 @@ export const PostEngagement = ({
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application.json' },
 				body: JSON.stringify({ userId: user.id, postId }),
+			}).finally(() => {
+				router.refresh()
 			})
-				.catch((error) => {})
-				.finally(() => {
-					router.refresh()
-				})
 		}
 	}
 
