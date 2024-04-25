@@ -1,14 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { getPostEngagement } from '@/app/_server/actions/post'
+
 import { buttonVariants } from './ui/button'
 
 import { Icons } from './icons'
 import { PostEngagement } from './post-engagement'
 
-import { formatDate } from '@/lib/utils'
-import { getPostEngagement } from '@/lib/post'
 import { auth } from '@/auth'
+
+import { formatDate } from '@/lib/utils'
 
 interface PostItemProps {
 	slug: string

@@ -5,22 +5,19 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 
 import { User } from 'next-auth'
-
 import { useMutation, useQuery } from '@tanstack/react-query'
-
 import { Comment, Dislike, Like } from '@prisma/client'
-
-import { Button, buttonVariants } from './ui/button'
-
-import { Icons } from './icons'
 
 import {
 	dislikePost,
 	getPostEngagement,
 	incrementView,
 	likePost,
-} from '@/lib/post'
-import { toast } from 'sonner'
+} from '@/app/_server/actions/post'
+
+import { Button, buttonVariants } from './ui/button'
+
+import { Icons } from './icons'
 
 interface PostEngagementProps {
 	initialData: {

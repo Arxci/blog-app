@@ -6,7 +6,7 @@ import { posts } from '#site/content'
 import { Icons } from '@/components/icons'
 import { MDXContent } from '@/components/mdx/mdx-components'
 
-import { getPostEngagement } from '@/lib/post'
+import { getPostEngagement } from '@/app/_server/actions/post'
 import { formatDate } from '@/lib/utils'
 
 import { PostEngagement } from '@/components/post-engagement'

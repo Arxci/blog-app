@@ -1,6 +1,6 @@
 'use server'
 
-import prismaDB from './prisma'
+import prismaDB from '../../../lib/prisma'
 
 export async function getPostBySlug({
 	slug,

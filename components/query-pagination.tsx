@@ -8,7 +8,6 @@ import {
 	PaginationLink,
 	PaginationPrevious,
 	PaginationNext,
-	PaginationEllipsis,
 } from './ui/pagination'
 
 interface QueryPaginationProps {

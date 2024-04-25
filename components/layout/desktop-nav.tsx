@@ -1,8 +1,10 @@
 import Link from 'next/link'
 
 import { Button } from '../ui/button'
-import { siteConfig } from '@/config/site'
+
 import { Icons } from '../icons'
+
+import { siteConfig } from '@/config/site'
 
 export const DesktopNav = () => {
 	return (
