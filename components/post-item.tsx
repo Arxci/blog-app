@@ -4,9 +4,11 @@ import Link from 'next/link'
 import { buttonVariants } from './ui/button'
 
 import { Icons } from './icons'
+import { PostEngagement } from './post-engagement'
 
 import { formatDate } from '@/lib/utils'
-import { getPostBySlug } from '@/lib/post'
+import { getPostEngagement } from '@/lib/post'
+import { auth } from '@/auth'
 
 interface PostItemProps {
 	slug: string
@@ -23,10 +25,11 @@ export const PostItem = async ({
 	date,
 	banner,
 }: PostItemProps) => {
-	const post = await getPostBySlug({
-		slug,
-		include: { comments: true, likes: true, dislikes: true },
-	})
+	const initialData = await getPostEngagement(slug)
+
+	const session = await auth()
+
+	const user = session?.user
 
 	return (
 		<div className="grid grid-rows-[auto_auto_1fr_auto] gap-2 border-border border-b h-full">
@@ -40,7 +43,6 @@ export const PostItem = async ({
 			</div>
 			<div className="flex gap-2 items-center ">
 				<div className="text-md font-semibold">Garrett Humbert</div>
-
 				<div>
 					<p className="sr-only">Published On</p>
 					<div className="flex text-sm items-center gap-1">
@@ -57,38 +59,12 @@ export const PostItem = async ({
 				</div>
 				<div className="max-w-none text-muted-foreground">{description}</div>
 			</div>
-
 			<div className="flex justify-between items-center">
-				<div className="flex gap-4">
-					<div>
-						<span className="sr-only">Comments</span>
-						<div className="text-sm sm:text-base font-medium flex items-center gap-1">
-							<Icons.message />
-							<p>{post?.comments.length}</p>
-						</div>
-					</div>
-					<div>
-						<span className="sr-only">Likes</span>
-						<div className="text-sm sm:text-base font-medium flex items-center gap-1">
-							<Icons.like />
-							<p>{post?.likes.length}</p>
-						</div>
-					</div>
-					<div>
-						<span className="sr-only">Dislikes</span>
-						<div className="text-sm sm:text-base font-medium flex items-center gap-1">
-							<Icons.dislike />
-							<p>{post?.dislikes.length}</p>
-						</div>
-					</div>
-					<div>
-						<span className="sr-only">Views</span>
-						<div className="text-sm sm:text-base font-medium flex items-center gap-1">
-							<Icons.eye />
-							<p>{post?.views}</p>
-						</div>
-					</div>
-				</div>
+				<PostEngagement
+					initialData={initialData}
+					user={user}
+					incrementViewCounter={false}
+				/>
 				<Link
 					href={slug}
 					className={buttonVariants({ variant: 'link' })}

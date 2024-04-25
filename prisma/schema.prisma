@@ -16,6 +16,8 @@ model Post {
     dislikes  Dislike[]
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
+
+    @@map("posts")
 }
 
 enum UserRole {
@@ -37,6 +39,8 @@ model User {
     dislikes      Dislike[]
     createdAt     DateTime  @default(now())
     updatedAt     DateTime  @updatedAt
+
+    @@map("users")
 }
 
 model Account {
@@ -56,6 +60,7 @@ model Account {
     user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@id([provider, providerAccountId])
+    @@map("accounts")
 }
 
 model Comment {

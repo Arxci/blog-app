@@ -1,3 +1,5 @@
+import { Post } from '#site/content'
+
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -27,4 +29,12 @@ export function handleOAuthError(error: string) {
 				description: 'Something went wrong. Please try again later.',
 			}
 	}
+}
+
+export function sortPosts(posts: Array<Post>): Post[] {
+	return posts.sort((a, b) => {
+		if (a.date > b.date) return -1
+		if (a.date < b.date) return 1
+		return 0
+	})
 }

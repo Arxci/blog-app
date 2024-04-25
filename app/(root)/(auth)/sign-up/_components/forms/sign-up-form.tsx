@@ -3,6 +3,7 @@
 import { useTransition } from 'react'
 
 import * as z from 'zod'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
@@ -14,37 +15,44 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '../ui/form'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+} from '../../../../../../components/ui/form'
+import { Input } from '../../../../../../components/ui/input'
+import { Button } from '../../../../../../components/ui/button'
 
-import { AuthCardWrapper } from '../auth/auth-card-wrapper'
-import { FormError } from '../form-error'
+import { AuthCardWrapper } from '../../../../../../components/auth/auth-card-wrapper'
+import { FormError } from '../../../../../../components/form-error'
 
-import { SignInSchema } from '@/schemas'
+import { SignUpSchema } from '@/schemas'
 
-import { signIn } from '@/actions/sign-in'
+import { signUp } from '@/app/(root)/(auth)/sign-up/_server/actions/sign-up'
 
-export const SignInForm = () => {
+export const SignUpForm = () => {
 	const [isPending, startTransition] = useTransition()
 
-	const form = useForm<z.infer<typeof SignInSchema>>({
-		resolver: zodResolver(SignInSchema),
+	const form = useForm<z.infer<typeof SignUpSchema>>({
+		resolver: zodResolver(SignUpSchema),
 		defaultValues: {
 			email: '',
 			password: '',
+			name: '',
 		},
 	})
 
-	const handleSubmit = (values: z.infer<typeof SignInSchema>) => {
-		startTransition(async () => {
-			signIn(values).then((data) => {
-				if (data?.type === 'error') {
-					const { description } = data
-
-					if (description) {
-						toast.error('Failed to sign in.', { description })
-					}
+	const handleSubmit = (values: z.infer<typeof SignUpSchema>) => {
+		startTransition(() => {
+			signUp(values).then((data) => {
+				switch (data.type) {
+					case 'error':
+						toast.error('Failed to create an account.', { ...data })
+						break
+					case 'success':
+						toast.success('Check your email', { ...data })
+						break
+					default:
+						toast.success('Failed to sign in.', {
+							description: 'Please try again later',
+						})
+						break
 				}
 			})
 		})
@@ -52,9 +60,9 @@ export const SignInForm = () => {
 
 	return (
 		<AuthCardWrapper
-			headerLabel="Welcome back"
-			backButtonHref="/sign-up"
-			backButtonLabel="Don't have an account?"
+			headerLabel="Create an account"
+			backButtonHref="/sign-in"
+			backButtonLabel="Already have an account?"
 			showSocial
 		>
 			<Form {...form}>
@@ -63,6 +71,23 @@ export const SignInForm = () => {
 					className="space-y-6"
 				>
 					<div className="space-y-4">
+						<FormField
+							control={form.control}
+							name="name"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Name</FormLabel>
+									<FormControl>
+										<Input
+											{...field}
+											disabled={isPending}
+											placeholder="John Doe"
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<FormField
 							control={form.control}
 							name="email"
@@ -106,7 +131,7 @@ export const SignInForm = () => {
 						type="submit"
 						className="w-full"
 					>
-						Sign in
+						Sign up
 					</Button>
 				</form>
 			</Form>

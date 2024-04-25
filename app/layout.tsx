@@ -7,7 +7,7 @@ import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 
 import '@/styles/globals.css'
-import { Providers } from '@/providers/providers'
+import { Providers } from '@/app/_helpers/providers/providers'
 
 export const metadata: Metadata = {
 	title: siteConfig.name,

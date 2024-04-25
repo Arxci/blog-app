@@ -9,14 +9,12 @@ import { SearchInput } from '@/components/search-input'
 import { TabFilters } from '@/components/tab-filters'
 import { PageSectionContainer } from '@/components/page-section-container'
 
-import { sortPosts } from '@/lib/post'
+import { sortPosts } from '@/lib/utils'
 import { FeaturedPost } from '@/components/featured-post'
 
-export default async function HomePage() {
+export default function HomePage() {
 	const sortedPost = sortPosts(posts.filter((post) => post.published))
 	const featuredPosts = sortedPost.filter((post) => post.isFeatured).slice(0, 2)
-
-	const displayPosts = sortedPost
 
 	return (
 		<main>
@@ -57,7 +55,7 @@ export default async function HomePage() {
 				<Separator className="mb-4 mt-1" />
 				<div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
 					<ul className="flex flex-col col-span-2 gap-4 mb-6 lg:mb-0">
-						{displayPosts.map((post) => (
+						{sortedPost.map((post) => (
 							<li key={post.slug}>
 								<PostItem {...post} />
 							</li>

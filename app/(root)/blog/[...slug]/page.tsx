@@ -11,7 +11,6 @@ import { formatDate } from '@/lib/utils'
 
 import { PostEngagement } from '@/components/post-engagement'
 import { auth } from '@/auth'
-import prismaDB from '@/lib/prisma'
 
 interface PostPageProps {
 	params: {
@@ -34,25 +33,15 @@ export async function generateStaticParams(): Promise<
 
 export default async function PostPage({ params }: PostPageProps) {
 	const post = await getPostFromParams(params)
-	const session = await auth()
-
-	let user = null
-
-	if (session) {
-		user = await prismaDB.user.findFirst({
-			where: {
-				id: session.user.id,
-			},
-		})
-	}
 
 	if (!post || !post.published) {
 		notFound()
 	}
 
-	const { id, views, comments, likes, dislikes } = await getPostEngagement(
-		post.slug
-	)
+	const session = await auth()
+	const user = session?.user
+
+	const initialData = await getPostEngagement(post.slug)
 
 	return (
 		<div className="max-w-3xl space-y-4 mx-auto w-screen">
@@ -87,15 +76,12 @@ export default async function PostPage({ params }: PostPageProps) {
 								</div>
 							</div>
 						</div>
-						<PostEngagement
-							viewsFromProps={views}
-							commentsFromProps={comments}
-							likesFromProps={likes}
-							dislikesFromProps={dislikes}
-							user={user}
-							slug={post.slug}
-							postId={id}
-						/>
+						<div className="md:ml-auto">
+							<PostEngagement
+								initialData={initialData}
+								user={user}
+							/>
+						</div>
 					</div>
 				</div>
 				<hr className="my-4 pb-6" />
