@@ -52,7 +52,6 @@ export const PostEngagement = ({
 			switch (type) {
 				case 'LIKE':
 					likePost(user?.id || '', initialData?.slug || '')
-
 					break
 				case 'DISLIKE':
 					dislikePost(user?.id || '', initialData?.slug || '')
@@ -100,7 +99,7 @@ export const PostEngagement = ({
 				<Toggle
 					aria-label="Like post"
 					variant="outline"
-					size="lg"
+					size="md"
 					disabled={!user || isPending}
 					pressed={didUserLike}
 					onClick={likePostHandle}
@@ -113,7 +112,7 @@ export const PostEngagement = ({
 				<Toggle
 					aria-label="Dislike post"
 					variant="outline"
-					size="lg"
+					size="md"
 					disabled={!user || isPending}
 					pressed={didUserDislike}
 					onClick={dislikePostHandle}
@@ -128,7 +127,7 @@ export const PostEngagement = ({
 				href={`/${slug}/#comments`}
 				aria-label="View comments"
 				className={cn(
-					toggleVariants({ size: 'lg', variant: 'outline' }),
+					toggleVariants({ size: 'md', variant: 'outline' }),
 					'h-full rounded-full text-sm sm:text-base font-medium space-x-1'
 				)}
 			>
@@ -139,7 +138,7 @@ export const PostEngagement = ({
 			<div
 				aria-label="Post views"
 				className={cn(
-					toggleVariants({ size: 'lg', variant: 'outline' }),
+					toggleVariants({ size: 'md', variant: 'outline' }),
 					'h-full rounded-full text-sm sm:text-base font-medium space-x-1'
 				)}
 			>

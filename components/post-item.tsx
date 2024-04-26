@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { formatDistanceToNow } from 'date-fns'
-
 import { getPostEngagement } from '@/app/_server/actions/post'
 
 import { Icons } from './icons'
@@ -35,11 +33,9 @@ export const PostItem = async ({
 
 	const user = session?.user
 
-	const timeSince = formatDistanceToNow(date, { addSuffix: true })
-
 	return (
 		<div className="grid grid-rows-[auto_1fr_auto] grid-cols-1 gap-2 h-full">
-			<div className="aspect-video relative rounded-lg overflow-hidden">
+			<div className="aspect-video relative rounded-sm md:rounded-md lg:rounded-lg overflow-hidden">
 				<Image
 					src={banner}
 					alt={title}
@@ -52,14 +48,13 @@ export const PostItem = async ({
 					<PostAuthor />
 					<div
 						aria-label="Published on"
-						className="flex text-sm items-center "
+						className="flex ml-auto text-sm text-muted-foreground items-center "
 					>
-						<Icons.dot className="hidden sm:block" />
 						<time
-							dateTime={timeSince}
-							className="hidden sm:block"
+							dateTime={date}
+							className=""
 						>
-							{timeSince.charAt(0).toUpperCase() + timeSince.slice(1)}
+							{formatDate(date)}
 						</time>
 					</div>
 				</div>
@@ -73,11 +68,13 @@ export const PostItem = async ({
 				</Button>
 				<div className="max-w-none text-muted-foreground">{description}</div>
 			</div>
-			<PostEngagement
-				initialData={initialData}
-				user={user}
-				incrementViewCounter={false}
-			/>
+			<div className="mt-2">
+				<PostEngagement
+					initialData={initialData}
+					user={user}
+					incrementViewCounter={false}
+				/>
+			</div>
 		</div>
 	)
 }
