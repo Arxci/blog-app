@@ -1,9 +1,9 @@
 import { posts } from '#site/content'
 import { PostItem } from '@/components/post-item'
-import { QueryPagination } from '@/components/query-pagination'
+import { QueryPagination } from '@/app/(root)/blog/_components/query-pagination'
 import { sortPosts } from '@/lib/utils'
 
-const POSTS_PER_PAGE = 5
+const POSTS_PER_PAGE = 6
 
 interface BlogPageProps {
 	searchParams: {

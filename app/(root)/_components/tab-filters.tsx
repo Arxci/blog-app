@@ -2,9 +2,9 @@
 
 import { useContext } from 'react'
 
-import { AnimatedTabs } from './ui/animated-tabs'
+import { AnimatedTabs } from '../../../components/ui/animated-tabs'
 
-import { Icons } from './icons'
+import { Icons } from '../../../components/icons'
 import { FiltersContext } from '@/store/filters-context'
 
 const tabOptions = [

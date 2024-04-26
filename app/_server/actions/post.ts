@@ -53,6 +53,19 @@ export async function likePost(userId: string, slug: string) {
 		})
 	}
 
+	const dislike = await prismaDB.dislike.findFirst({
+		where: {
+			postId: slug,
+			userId,
+		},
+	})
+
+	if (dislike) {
+		await prismaDB.dislike.delete({
+			where: { ...dislike },
+		})
+	}
+
 	return await prismaDB.like.create({
 		data: {
 			postId: slug,
@@ -74,6 +87,19 @@ export async function dislikePost(userId: string, slug: string) {
 			where: {
 				...dislike,
 			},
+		})
+	}
+
+	const like = await prismaDB.like.findFirst({
+		where: {
+			postId: slug,
+			userId,
+		},
+	})
+
+	if (like) {
+		await prismaDB.like.delete({
+			where: { ...like },
 		})
 	}
 

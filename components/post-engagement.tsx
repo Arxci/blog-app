@@ -18,6 +18,9 @@ import {
 import { Button, buttonVariants } from './ui/button'
 
 import { Icons } from './icons'
+import { Toggle, toggleVariants } from './ui/toggle'
+import { Separator } from './ui/separator'
+import { cn } from '@/lib/utils'
 
 interface PostEngagementProps {
 	initialData: {
@@ -38,9 +41,10 @@ export const PostEngagement = ({
 	incrementViewCounter = true,
 }: PostEngagementProps) => {
 	const { data, isLoading, refetch } = useQuery({
-		queryKey: ['postId', initialData?.slug],
+		queryKey: ['post', initialData?.slug],
 		queryFn: async ({ queryKey }) => await getPostEngagement(queryKey[1] || ''),
 		initialData: initialData,
+		refetchOnMount: false,
 	})
 
 	const { mutate, isPending } = useMutation({
@@ -58,7 +62,7 @@ export const PostEngagement = ({
 					break
 			}
 		},
-		onSuccess: (data, type) => refetch(),
+		onSuccess: () => refetch(),
 	})
 
 	if (!data || isLoading) {
@@ -91,70 +95,56 @@ export const PostEngagement = ({
 	}
 
 	return (
-		<div className="flex space-x-1">
-			<div>
-				<Button
-					size="sm"
-					variant="ghost"
-					radius="full"
+		<div className="flex space-x-1 items-center h-8">
+			<div className="h-full">
+				<Toggle
+					aria-label="Like post"
+					variant="outline"
+					size="lg"
+					disabled={!user || isPending}
+					pressed={didUserLike}
 					onClick={likePostHandle}
-					disabled={!user || isPending}
-					data-state={didUserLike ? 'selected' : 'deselected'}
-					className="data-[state=selected]:bg-green-500/20 data-[state=selected]:text-green-500 data-[state=selected]:hover:bg-green-500/10 transition-colors"
+					className="h-full rounded-l-full rounded-r-none [&>svg]:data-[state=on]:fill-foreground space-x-1 text-sm sm:text-base font-medium"
 				>
-					<span className="sr-only">Likes</span>
-					<div className="text-sm sm:text-base font-medium flex items-center gap-1">
-						<Icons.like />
-						<p>{likes.length}</p>
-					</div>
-				</Button>
-			</div>
-			<div>
-				<Button
-					size="sm"
-					variant="ghost"
-					radius="full"
+					<Icons.like className="transition-all fill-background" />
+					<span>{likes.length}</span>
+				</Toggle>
+
+				<Toggle
+					aria-label="Dislike post"
+					variant="outline"
+					size="lg"
+					disabled={!user || isPending}
+					pressed={didUserDislike}
 					onClick={dislikePostHandle}
-					disabled={!user || isPending}
-					data-state={didUserDislike ? 'selected' : 'deselected'}
-					className="data-[state=selected]:bg-red-500/20 data-[state=selected]:text-red-500 data-[state=selected]:hover:bg-red-500/10 transition-colors"
+					className="h-full rounded-r-full rounded-l-none [&>svg]:data-[state=on]:fill-foreground space-x-1 text-sm sm:text-base font-medium"
 				>
-					<span className="sr-only">Dislikes</span>
-					<div className="text-sm sm:text-base font-medium flex items-center gap-1">
-						<Icons.dislike />
-						<p>{dislikes.length}</p>
-					</div>
-				</Button>
+					<Icons.dislike className="transition-all fill-background" />
+					<span>{dislikes.length}</span>
+				</Toggle>
 			</div>
-			<div>
-				<Button
-					size="sm"
-					variant="ghost"
-					radius="full"
-					asChild
-				>
-					<Link href="#comments">
-						<span className="sr-only">Comments</span>
-						<div className="text-sm sm:text-base font-medium flex items-center gap-1">
-							<Icons.message />
-							<p>{comments.length}</p>
-						</div>
-					</Link>
-				</Button>
-			</div>
-			<div
-				className={buttonVariants({
-					variant: 'secondary',
-					size: 'sm',
-					radius: 'full',
-					className: 'bg-transparent hover:bg-transparent',
-				})}
+
+			<Link
+				href={`/${slug}/#comments`}
+				aria-label="View comments"
+				className={cn(
+					toggleVariants({ size: 'lg', variant: 'outline' }),
+					'h-full rounded-full text-sm sm:text-base font-medium space-x-1'
+				)}
 			>
-				<span className="sr-only">Views</span>
-				<div className="text-sm sm:text-base font-medium flex items-center gap-1">
-					<Icons.eye />
-					<p>{views}</p>
-				</div>
+				<Icons.message />
+				<span>{comments.length}</span>
+			</Link>
+
+			<div
+				aria-label="Post views"
+				className={cn(
+					toggleVariants({ size: 'lg', variant: 'outline' }),
+					'h-full rounded-full text-sm sm:text-base font-medium space-x-1'
+				)}
+			>
+				<Icons.eye />
+				<span>{views}</span>
 			</div>
 		</div>
 	)

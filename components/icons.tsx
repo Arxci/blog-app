@@ -9,12 +9,13 @@ import {
 	Sun,
 	TrendingUpIcon,
 	X,
-	Calendar,
+	CalendarDays,
 	MessageCircle,
 	ThumbsDown,
 	ThumbsUp,
 	TriangleAlert,
 	Eye,
+	Dot,
 } from 'lucide-react'
 
 import { FcGoogle } from 'react-icons/fc'
@@ -35,6 +36,12 @@ export const Icons = {
 	),
 	eye: (props: IconProps) => (
 		<Eye
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	dot: (props: IconProps) => (
+		<Dot
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>
@@ -76,7 +83,7 @@ export const Icons = {
 		/>
 	),
 	calendar: (props: IconProps) => (
-		<Calendar
+		<CalendarDays
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

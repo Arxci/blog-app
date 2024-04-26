@@ -5,8 +5,8 @@ import { posts } from '#site/content'
 import { Separator } from '@/components/ui/separator'
 
 import { PostItem } from '@/components/post-item'
-import { SearchInput } from '@/components/search-input'
-import { TabFilters } from '@/components/tab-filters'
+import { SearchInput } from '@/app/(root)/_components/search-input'
+import { TabFilters } from '@/app/(root)/_components/tab-filters'
 import { PageSectionContainer } from '@/components/page-section-container'
 
 import { sortPosts } from '@/lib/utils'

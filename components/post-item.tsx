@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { getPostEngagement } from '@/app/_server/actions/post'
+import { formatDistanceToNow } from 'date-fns'
 
-import { buttonVariants } from './ui/button'
+import { getPostEngagement } from '@/app/_server/actions/post'
 
 import { Icons } from './icons'
 import { PostEngagement } from './post-engagement'
@@ -11,6 +11,8 @@ import { PostEngagement } from './post-engagement'
 import { auth } from '@/auth'
 
 import { formatDate } from '@/lib/utils'
+import { Button } from './ui/button'
+import { PostAuthor } from './post-author'
 
 interface PostItemProps {
 	slug: string
@@ -33,8 +35,10 @@ export const PostItem = async ({
 
 	const user = session?.user
 
+	const timeSince = formatDistanceToNow(date, { addSuffix: true })
+
 	return (
-		<div className="grid grid-rows-[auto_auto_1fr_auto] gap-2 border-border border-b h-full">
+		<div className="grid grid-rows-[auto_1fr_auto] grid-cols-1 gap-2 h-full">
 			<div className="aspect-video relative rounded-lg overflow-hidden">
 				<Image
 					src={banner}
@@ -43,37 +47,37 @@ export const PostItem = async ({
 					fill
 				/>
 			</div>
-			<div className="flex gap-2 items-center ">
-				<div className="text-md font-semibold">Garrett Humbert</div>
-				<div>
-					<p className="sr-only">Published On</p>
-					<div className="flex text-sm items-center gap-1">
-						<Icons.calendar />
-						<time dateTime={date}>{formatDate(date)}</time>
+			<div>
+				<div className="flex items-center ">
+					<PostAuthor />
+					<div
+						aria-label="Published on"
+						className="flex text-sm items-center "
+					>
+						<Icons.dot className="hidden sm:block" />
+						<time
+							dateTime={timeSince}
+							className="hidden sm:block"
+						>
+							{timeSince.charAt(0).toUpperCase() + timeSince.slice(1)}
+						</time>
 					</div>
 				</div>
-			</div>
-			<div className="space-y-2">
-				<div>
-					<h2 className="text-2xl font-bold">
-						<Link href={slug}>{title}</Link>
-					</h2>
-				</div>
+				<Button
+					variant="link"
+					className="p-0 mb-1 h-auto whitespace-normal text-left "
+				>
+					<Link href={slug}>
+						<h2 className="text-2xl font-bold">{title}</h2>
+					</Link>
+				</Button>
 				<div className="max-w-none text-muted-foreground">{description}</div>
 			</div>
-			<div className="flex justify-between items-center">
-				<PostEngagement
-					initialData={initialData}
-					user={user}
-					incrementViewCounter={false}
-				/>
-				<Link
-					href={slug}
-					className={buttonVariants({ variant: 'link' })}
-				>
-					Read more
-				</Link>
-			</div>
+			<PostEngagement
+				initialData={initialData}
+				user={user}
+				incrementViewCounter={false}
+			/>
 		</div>
 	)
 }
