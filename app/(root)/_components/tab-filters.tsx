@@ -47,8 +47,6 @@ export const TabFilters = ({ currentFilter }: { currentFilter: string }) => {
 		if (typeof newFilter === 'number') {
 			router.push(createFilterURL(tabOptions[newFilter].id), { scroll: false })
 		}
-
-		console.log(typeof newFilter)
 		setFilter(newFilter)
 	}
 

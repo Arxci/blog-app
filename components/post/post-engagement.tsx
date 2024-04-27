@@ -15,8 +15,8 @@ import {
 	likePost,
 } from '@/app/_server/actions/post'
 
-import { Icons } from './icons'
-import { Toggle, toggleVariants } from './ui/toggle'
+import { Icons } from '../icons'
+import { Toggle, toggleVariants } from '../ui/toggle'
 
 import { cn } from '@/lib/utils'
 

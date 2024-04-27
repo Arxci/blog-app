@@ -8,7 +8,7 @@ import { PostEngagement } from './post-engagement'
 import { auth } from '@/auth'
 
 import { formatDate } from '@/lib/utils'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 import { PostAuthor } from './post-author'
 
 interface PostItemProps {

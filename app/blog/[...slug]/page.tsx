@@ -3,15 +3,14 @@ import Image from 'next/image'
 
 import { posts } from '#site/content'
 
-import { Icons } from '@/components/icons'
 import { MDXContent } from '@/components/mdx/mdx-components'
 
 import { getPostEngagement } from '@/app/_server/actions/post'
 import { formatDate } from '@/lib/utils'
 
-import { PostEngagement } from '@/components/post-engagement'
+import { PostEngagement } from '@/components/post/post-engagement'
 import { auth } from '@/auth'
-import { PostAuthor } from '@/components/post-author'
+import { PostAuthor } from '@/components/post/post-author'
 
 interface PostPageProps {
 	params: {

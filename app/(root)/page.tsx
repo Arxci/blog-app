@@ -1,19 +1,14 @@
 import Image from 'next/image'
 
-import { posts } from '#site/content'
-
-import { getFilteredPosts } from '../_server/actions/post'
-
 import { Separator } from '@/components/ui/separator'
 
-import { PostItem } from '@/components/post-item'
 import { SearchInput } from '@/app/(root)/_components/search-input'
 import { TabFilters } from '@/app/(root)/_components/tab-filters'
-import { PageSectionContainer } from '@/components/page-section-container'
+import { PageSectionContainer } from '@/components/layout/page-section-container'
 
-import { FeaturedPost } from '@/components/featured-post'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+import { DisplayPosts } from './_components/display-posts'
+import { Suspense } from 'react'
+import { DisplayPostsLoading } from './_components/loading/display-posts-loading'
 
 interface HomePageProps {
 	searchParams: {
@@ -21,17 +16,10 @@ interface HomePageProps {
 	}
 }
 
-export default async function HomePage({ searchParams }: HomePageProps) {
+export default function HomePage({ searchParams }: HomePageProps) {
 	const currentFilter = searchParams?.filter || 'popular'
-
-	const sortedPost = await getFilteredPosts(currentFilter)
-
-	const featuredPosts = posts
-		.filter((post) => post.isFeatured && post.published)
-		.slice(0, 2)
-
 	return (
-		<main>
+		<main key={Math.random()}>
 			<PageSectionContainer className="relative w-full mb-14 h-[400px] overflow-hidden lg:rounded-b-lg">
 				<Image
 					fill
@@ -67,36 +55,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 					<TabFilters currentFilter={currentFilter} />
 				</div>
 				<Separator className="mb-4 mt-1" />
-				<div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10 pb-6">
-					<div className="col-span-2 space-y-6">
-						<ul className="flex flex-col gap-4 mb-6 lg:mb-0 ">
-							{sortedPost.map((post) => (
-								<li key={post.slug}>
-									<PostItem {...post} />
-								</li>
-							))}
-						</ul>
-						<Button
-							radius="full"
-							className="w-full"
-							asChild
-						>
-							<Link href={'/blog'}>See more</Link>
-						</Button>
-					</div>
-					<div className="flex flex-col">
-						<h3 className="font-semibold text-xl md:text-2xl lg:text-3xl mb-6">
-							Featured Posts
-						</h3>
-						<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 pb-4">
-							{featuredPosts.map((post) => (
-								<li key={post.slug}>
-									<FeaturedPost {...post} />
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
+				<Suspense fallback={<DisplayPostsLoading />}>
+					<DisplayPosts currentFilter={currentFilter} />
+				</Suspense>
 			</PageSectionContainer>
 		</main>
 	)
