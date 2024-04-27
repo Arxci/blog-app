@@ -15,11 +15,9 @@ import {
 	likePost,
 } from '@/app/_server/actions/post'
 
-import { Button, buttonVariants } from './ui/button'
-
 import { Icons } from './icons'
 import { Toggle, toggleVariants } from './ui/toggle'
-import { Separator } from './ui/separator'
+
 import { cn } from '@/lib/utils'
 
 interface PostEngagementProps {
@@ -44,7 +42,6 @@ export const PostEngagement = ({
 		queryKey: ['post', initialData?.slug],
 		queryFn: async ({ queryKey }) => await getPostEngagement(queryKey[1] || ''),
 		initialData: initialData,
-		refetchOnMount: false,
 	})
 
 	const { mutate, isPending } = useMutation({

@@ -2,6 +2,8 @@ import Image from 'next/image'
 
 import { posts } from '#site/content'
 
+import { getFilteredPosts } from '../_server/actions/post'
+
 import { Separator } from '@/components/ui/separator'
 
 import { PostItem } from '@/components/post-item'
@@ -9,12 +11,22 @@ import { SearchInput } from '@/app/(root)/_components/search-input'
 import { TabFilters } from '@/app/(root)/_components/tab-filters'
 import { PageSectionContainer } from '@/components/page-section-container'
 
-import { sortPosts } from '@/lib/utils'
 import { FeaturedPost } from '@/components/featured-post'
 
-export default function HomePage() {
-	const sortedPost = sortPosts(posts.filter((post) => post.published))
-	const featuredPosts = sortedPost.filter((post) => post.isFeatured).slice(0, 2)
+interface HomePageProps {
+	searchParams: {
+		filter: 'popular' | 'trending' | 'new'
+	}
+}
+
+export default async function HomePage({ searchParams }: HomePageProps) {
+	const currentFilter = searchParams?.filter || 'popular'
+
+	const sortedPost = await getFilteredPosts(currentFilter)
+
+	const featuredPosts = posts
+		.filter((post) => post.isFeatured && post.published)
+		.slice(0, 2)
 
 	return (
 		<main>
@@ -50,7 +62,7 @@ export default function HomePage() {
 					Trending Posts!
 				</h2>
 				<div className="flex items-center gap-2 md:gap-4 h-14">
-					<TabFilters />
+					<TabFilters currentFilter={currentFilter} />
 				</div>
 				<Separator className="mb-4 mt-1" />
 				<div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
@@ -65,7 +77,7 @@ export default function HomePage() {
 						<h3 className="font-semibold text-xl md:text-2xl lg:text-3xl mb-6">
 							Featured Posts
 						</h3>
-						<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+						<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 pb-4">
 							{featuredPosts.map((post) => (
 								<li key={post.slug}>
 									<FeaturedPost {...post} />

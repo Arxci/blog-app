@@ -3,7 +3,6 @@ import Link from 'next/link'
 
 import { getPostEngagement } from '@/app/_server/actions/post'
 
-import { Icons } from './icons'
 import { PostEngagement } from './post-engagement'
 
 import { auth } from '@/auth'
