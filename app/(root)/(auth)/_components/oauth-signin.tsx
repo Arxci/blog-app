@@ -6,8 +6,8 @@ import { signIn } from 'next-auth/react'
 
 import { toast } from 'sonner'
 
-import { Icons } from '../icons'
-import { Button } from '../ui/button'
+import { Icons } from '../../../../components/icons'
+import { Button } from '../../../../components/ui/button'
 
 import { DEFAULT_SIGNIN_REDIRECT } from '@/routes'
 import { useSearchParams } from 'next/navigation'
@@ -47,7 +47,7 @@ export const OAuthSignIn = () => {
 			<Button
 				size="lg"
 				variant={'outline'}
-				className="w-full"
+				className="w-full space-x-1"
 				disabled={isLoading === 'google'}
 				onClick={() => handleClick('google')}
 			>
@@ -56,14 +56,14 @@ export const OAuthSignIn = () => {
 				) : (
 					<>
 						<Icons.google className="h-5 w-5" />
-						<span className="sr-only">Sign in with google</span>
+						<p className="hidden sm:block">Google</p>
 					</>
 				)}
 			</Button>
 			<Button
 				size="lg"
 				variant={'outline'}
-				className="w-full"
+				className="w-full space-x-1"
 				disabled={isLoading === 'github'}
 				onClick={() => handleClick('github')}
 			>
@@ -72,7 +72,7 @@ export const OAuthSignIn = () => {
 				) : (
 					<>
 						<Icons.github className="h-5 w-5" />
-						<span className="sr-only">Sign in with github</span>
+						<p className="hidden sm:block">Google</p>
 					</>
 				)}
 			</Button>

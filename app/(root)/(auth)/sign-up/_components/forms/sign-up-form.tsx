@@ -2,6 +2,8 @@
 
 import { useTransition } from 'react'
 
+import Link from 'next/link'
+
 import * as z from 'zod'
 
 import { useForm } from 'react-hook-form'
@@ -19,12 +21,12 @@ import {
 import { Input } from '../../../../../../components/ui/input'
 import { Button } from '../../../../../../components/ui/button'
 
-import { AuthCardWrapper } from '../../../../../../components/auth/auth-card-wrapper'
 import { FormError } from '../../../../../../components/form-error'
 
 import { SignUpSchema } from '@/schemas'
 
 import { signUp } from '@/app/(root)/(auth)/sign-up/_server/actions/sign-up'
+import { PasswordInput } from '@/components/password-input'
 
 export const SignUpForm = () => {
 	const [isPending, startTransition] = useTransition()
@@ -59,82 +61,88 @@ export const SignUpForm = () => {
 	}
 
 	return (
-		<AuthCardWrapper
-			headerLabel="Create an account"
-			backButtonHref="/sign-in"
-			backButtonLabel="Already have an account?"
-			showSocial
-		>
-			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(handleSubmit)}
-					className="space-y-6"
+		<Form {...form}>
+			<form
+				onSubmit={form.handleSubmit(handleSubmit)}
+				className="space-y-6"
+			>
+				<div className="space-y-4">
+					<FormField
+						control={form.control}
+						name="name"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel htmlFor={field.name}>Name</FormLabel>
+								<FormControl>
+									<Input
+										id={field.name}
+										autoComplete="name"
+										type="text"
+										placeholder="Rodney Mullen"
+										className="hover:bg-muted"
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="email"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel htmlFor={field.name}>Email</FormLabel>
+								<FormControl>
+									<Input
+										id={field.name}
+										autoComplete="email"
+										type="text"
+										placeholder="rodneymullen180@gmail.com"
+										className="hover:bg-muted"
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="password"
+						render={({ field }) => (
+							<FormItem>
+								<div className="flex items-center">
+									<FormLabel htmlFor={field.name}>Password</FormLabel>
+									<Link
+										href="/forgot-password"
+										className="ml-auto inline-block text-sm underline"
+									>
+										Forgot your password?
+									</Link>
+								</div>
+								<FormControl>
+									<PasswordInput
+										placeholder="**********"
+										autoComplete="current-password"
+										id={field.name}
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
+				<FormError />
+				<Button
+					disabled={isPending}
+					type="submit"
+					className="w-full"
 				>
-					<div className="space-y-4">
-						<FormField
-							control={form.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Name</FormLabel>
-									<FormControl>
-										<Input
-											{...field}
-											disabled={isPending}
-											placeholder="John Doe"
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="email"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Email</FormLabel>
-									<FormControl>
-										<Input
-											{...field}
-											disabled={isPending}
-											placeholder="john.doe@example.com"
-											type="email"
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="password"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Password</FormLabel>
-									<FormControl>
-										<Input
-											{...field}
-											disabled={isPending}
-											placeholder="******"
-											type="password"
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
-					<FormError />
-					<Button
-						disabled={isPending}
-						type="submit"
-						className="w-full"
-					>
-						Sign up
-					</Button>
-				</form>
-			</Form>
-		</AuthCardWrapper>
+					Sign up
+				</Button>
+			</form>
+		</Form>
 	)
 }

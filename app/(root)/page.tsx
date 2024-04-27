@@ -18,6 +18,7 @@ interface HomePageProps {
 
 export default function HomePage({ searchParams }: HomePageProps) {
 	const currentFilter = searchParams?.filter || 'popular'
+
 	return (
 		<main key={Math.random()}>
 			<PageSectionContainer className="relative w-full mb-14 h-[400px] overflow-hidden lg:rounded-b-lg">

@@ -15,6 +15,7 @@ import {
 	ThumbsUp,
 	TriangleAlert,
 	Eye,
+	EyeOff,
 	Dot,
 } from 'lucide-react'
 
@@ -30,6 +31,12 @@ export interface IconProps {
 export const Icons = {
 	sun: (props: IconProps) => (
 		<Sun
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	eyeSlash: (props: IconProps) => (
+		<EyeOff
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

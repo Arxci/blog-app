@@ -47,11 +47,9 @@ export async function sortPosts(
 	switch (filter) {
 		case 'popular':
 			return rankedPosts.map((post) => {
-				const index = sortedArr
-					.map((sortedPost) => {
-						return sortedPost.slug
-					})
-					.indexOf(post.slug)
+				const index = sortedArr.findIndex(
+					(sortedPost) => sortedPost.slug === post.slug
+				)
 
 				return sortedArr[index]
 			})
@@ -62,11 +60,9 @@ export async function sortPosts(
 			const temp = rankedPosts.sort((a, b) => b.views - a.views)
 
 			return temp.map((post) => {
-				const index = sortedArr
-					.map((sortedPost) => {
-						return sortedPost.slug
-					})
-					.indexOf(post.slug)
+				const index = sortedArr.findIndex(
+					(sortedPost) => sortedPost.slug === post.slug
+				)
 				return sortedArr[index]
 			})
 	}
@@ -82,11 +78,7 @@ async function rankPosts(arr: Post[], orderBy: 'asc' | 'desc') {
 	})
 
 	const ratings = arr.map((item) => {
-		const index = posts
-			.map((post) => {
-				return post.id
-			})
-			.indexOf(item.slug)
+		const index = posts.findIndex((post) => post.slug === item.slug)
 
 		const { comments, likes, dislikes, views, slug } = posts[index]
 
