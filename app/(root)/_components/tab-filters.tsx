@@ -20,8 +20,8 @@ const tabOptions = [
 		icon: <Icons.circlePlus className="text-blue-500 z-10 relative" />,
 	},
 	{
-		id: 'trending',
-		label: 'Trending',
+		id: 'most-viewed',
+		label: 'Most Viewed',
 		icon: <Icons.trendingUp className="text-green-500 z-10 relative" />,
 	},
 ]

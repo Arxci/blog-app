@@ -12,10 +12,12 @@ import { TabFilters } from '@/app/(root)/_components/tab-filters'
 import { PageSectionContainer } from '@/components/page-section-container'
 
 import { FeaturedPost } from '@/components/featured-post'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 interface HomePageProps {
 	searchParams: {
-		filter: 'popular' | 'trending' | 'new'
+		filter: 'popular' | 'most-viewed' | 'new'
 	}
 }
 
@@ -65,14 +67,23 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 					<TabFilters currentFilter={currentFilter} />
 				</div>
 				<Separator className="mb-4 mt-1" />
-				<div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
-					<ul className="flex flex-col col-span-2 gap-4 mb-6 lg:mb-0">
-						{sortedPost.map((post) => (
-							<li key={post.slug}>
-								<PostItem {...post} />
-							</li>
-						))}
-					</ul>
+				<div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10 pb-6">
+					<div className="col-span-2 space-y-6">
+						<ul className="flex flex-col gap-4 mb-6 lg:mb-0 ">
+							{sortedPost.map((post) => (
+								<li key={post.slug}>
+									<PostItem {...post} />
+								</li>
+							))}
+						</ul>
+						<Button
+							radius="full"
+							className="w-full"
+							asChild
+						>
+							<Link href={'/blog'}>See more</Link>
+						</Button>
+					</div>
 					<div className="flex flex-col">
 						<h3 className="font-semibold text-xl md:text-2xl lg:text-3xl mb-6">
 							Featured Posts

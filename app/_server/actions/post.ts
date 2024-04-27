@@ -125,12 +125,12 @@ export async function incrementView(slug: string) {
 }
 
 export async function getFilteredPosts(
-	currentFilter: 'popular' | 'trending' | 'new'
+	currentFilter: 'popular' | 'most-viewed' | 'new'
 ) {
 	return await sortPosts(
 		posts.filter((post) => post.published),
 		currentFilter
 	).then((e) => {
-		return e.slice(0, 5)
+		return e.slice(0, 4)
 	})
 }

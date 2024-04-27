@@ -34,7 +34,7 @@ export function handleOAuthError(error: string) {
 
 export async function sortPosts(
 	arr: Post[],
-	filter: 'popular' | 'new' | 'trending'
+	filter: 'popular' | 'new' | 'most-viewed'
 ): Promise<Post[]> {
 	const sortedArr = arr.sort((a, b) => {
 		if (a.date > b.date) return -1
@@ -58,16 +58,18 @@ export async function sortPosts(
 		case 'new':
 			return sortedArr
 
-		case 'trending':
-			arr.sort((a, b) => {
-				if (a.date > b.date) return -1
-				if (a.date < b.date) return 1
-				return 0
-			})
-			break
-	}
+		case 'most-viewed':
+			const temp = rankedPosts.sort((a, b) => b.views - a.views)
 
-	return sortedArr
+			return temp.map((post) => {
+				const index = sortedArr
+					.map((sortedPost) => {
+						return sortedPost.slug
+					})
+					.indexOf(post.slug)
+				return sortedArr[index]
+			})
+	}
 }
 
 async function rankPosts(arr: Post[], orderBy: 'asc' | 'desc') {
@@ -89,7 +91,8 @@ async function rankPosts(arr: Post[], orderBy: 'asc' | 'desc') {
 		const { comments, likes, dislikes, views, slug } = posts[index]
 
 		return {
-			rating: likes.length - dislikes.length + comments.length + views,
+			rating: likes.length - dislikes.length + comments.length,
+			views,
 			slug: slug,
 		}
 	})
