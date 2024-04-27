@@ -1,14 +1,21 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
-import { Input } from '../../../components/ui/input'
-import { Button } from '../../../components/ui/button'
+import { useRouter } from 'next/navigation'
 
-import { Icons } from '../../../components/icons'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
 
-export const SearchInput = () => {
-	const [search, setSearch] = useState<string>('')
+import { Icons } from './icons'
+
+export const SearchInput = ({
+	defaultValue = '',
+}: {
+	defaultValue?: string
+}) => {
+	const [search, setSearch] = useState<string>(defaultValue)
+	const router = useRouter()
 
 	const inputChangeHandle = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearch(e.target.value)
@@ -16,11 +23,22 @@ export const SearchInput = () => {
 
 	const clearInputHandle = () => {
 		setSearch('')
+
+		router.push('/blog?search=')
+	}
+
+	const submitFormHandle = (e: FormEvent) => {
+		e.preventDefault()
+
+		router.push('/blog?search=' + search)
 	}
 
 	return (
 		<div className="w-full">
-			<form className="grid sm:grid-cols-[1fr_auto] gap-2 w-full">
+			<form
+				className="grid sm:grid-cols-[1fr_auto] gap-2 w-full"
+				onSubmit={submitFormHandle}
+			>
 				<div className="group">
 					<div className="border border-input rounded-full group-hover:bg-muted focus-within:ring-2 focus-within:ring-ring bg-background focus-within:ring-offset-2">
 						<div className="pl-3 flex items-center gap-2">

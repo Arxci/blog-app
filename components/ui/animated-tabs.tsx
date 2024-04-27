@@ -26,7 +26,7 @@ export const AnimatedTabs = ({
 		Array<RefObject<HTMLButtonElement> | undefined>
 	>(() => {
 		return tabs.map(() => createRef())
-	}, [])
+	}, [tabs])
 
 	const isControlled = typeof valueFromProps != 'undefined'
 

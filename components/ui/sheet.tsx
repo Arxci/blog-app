@@ -138,6 +138,8 @@ const SheetClose = React.forwardRef<
 	</SheetPrimitive.Close>
 ))
 
+SheetClose.displayName = SheetPrimitive.Close.displayName
+
 export {
 	Sheet,
 	SheetPortal,

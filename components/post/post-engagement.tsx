@@ -54,12 +54,18 @@ export const PostEngagement = ({
 					dislikePost(user?.id || '', initialData?.slug || '')
 					break
 				case 'VIEW':
-					incrementView(initialData?.slug || '')
+					if (incrementViewCounter) {
+						incrementView(initialData?.slug || '')
+					}
 					break
 			}
 		},
 		onSuccess: () => refetch(),
 	})
+
+	useEffect(() => {
+		mutate('VIEW')
+	}, [mutate])
 
 	if (!data || isLoading) {
 		return <div>Loading...</div>
@@ -71,12 +77,6 @@ export const PostEngagement = ({
 		likes.filter((like) => like.userId === user?.id).length > 0
 	const didUserDislike =
 		dislikes.filter((dislike) => dislike.userId === user?.id).length > 0
-
-	useEffect(() => {
-		if (incrementViewCounter) {
-			mutate('VIEW')
-		}
-	}, [])
 
 	const likePostHandle = async () => {
 		if (user) {

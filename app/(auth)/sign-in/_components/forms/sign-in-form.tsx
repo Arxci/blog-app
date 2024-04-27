@@ -16,15 +16,15 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '../../../../../../components/ui/form'
-import { Input } from '../../../../../../components/ui/input'
-import { Button } from '../../../../../../components/ui/button'
+} from '../../../../../components/ui/form'
+import { Input } from '../../../../../components/ui/input'
+import { Button } from '../../../../../components/ui/button'
 
-import { FormError } from '../../../../../../components/form-error'
+import { FormError } from '../../../../../components/form-error'
 
 import { SignInSchema } from '@/schemas'
 
-import { signIn } from '@/app/(root)/(auth)/sign-in/_server/actions/sign-in'
+import { signIn } from '@/app/(auth)/sign-in/_server/actions/sign-in'
 import { PasswordInput } from '@/components/password-input'
 
 export const SignInForm = () => {

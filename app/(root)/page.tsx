@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import { Separator } from '@/components/ui/separator'
 
-import { SearchInput } from '@/app/(root)/_components/search-input'
+import { SearchInput } from '@/components/search-input'
 import { TabFilters } from '@/app/(root)/_components/tab-filters'
 import { PageSectionContainer } from '@/components/layout/page-section-container'
 

@@ -6,7 +6,7 @@ import {
 	CardContent,
 } from '@/components/ui/card'
 
-import { OAuthSignIn } from '@/app/(root)/(auth)/_components/oauth-signin'
+import { OAuthSignIn } from '@/app/(auth)/_components/oauth-signin'
 
 interface WrapperCardProps {
 	children: React.ReactNode

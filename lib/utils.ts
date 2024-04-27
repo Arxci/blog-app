@@ -34,7 +34,8 @@ export function handleOAuthError(error: string) {
 
 export async function sortPosts(
 	arr: Post[],
-	filter: 'popular' | 'new' | 'most-viewed'
+	filter: 'popular' | 'new' | 'most-viewed',
+	search?: string
 ): Promise<Post[]> {
 	const sortedArr = arr.sort((a, b) => {
 		if (a.date > b.date) return -1
@@ -42,28 +43,46 @@ export async function sortPosts(
 		return 0
 	})
 
-	const rankedPosts = await rankPosts(sortedArr, 'desc')
+	const searchedPosts = sortedArr.filter((sortedPost) => {
+		if (!search) return true
+
+		if (
+			sortedPost.title
+				.toLocaleLowerCase()
+				.includes(search.toLocaleLowerCase()) ||
+			sortedPost.description
+				?.toLocaleLowerCase()
+				.includes(search.toLocaleLowerCase()) ||
+			sortedPost.tags?.includes(search.toLocaleLowerCase())
+		) {
+			return true
+		}
+
+		return false
+	})
+
+	const rankedPosts = await rankPosts(searchedPosts, 'desc')
 
 	switch (filter) {
 		case 'popular':
 			return rankedPosts.map((post) => {
-				const index = sortedArr.findIndex(
+				const index = searchedPosts.findIndex(
 					(sortedPost) => sortedPost.slug === post.slug
 				)
 
-				return sortedArr[index]
+				return searchedPosts[index]
 			})
 		case 'new':
-			return sortedArr
+			return searchedPosts
 
 		case 'most-viewed':
 			const temp = rankedPosts.sort((a, b) => b.views - a.views)
 
 			return temp.map((post) => {
-				const index = sortedArr.findIndex(
+				const index = searchedPosts.findIndex(
 					(sortedPost) => sortedPost.slug === post.slug
 				)
-				return sortedArr[index]
+				return searchedPosts[index]
 			})
 	}
 }

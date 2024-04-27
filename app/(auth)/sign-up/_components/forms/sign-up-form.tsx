@@ -17,15 +17,15 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '../../../../../../components/ui/form'
-import { Input } from '../../../../../../components/ui/input'
-import { Button } from '../../../../../../components/ui/button'
+} from '../../../../../components/ui/form'
+import { Input } from '../../../../../components/ui/input'
+import { Button } from '../../../../../components/ui/button'
 
-import { FormError } from '../../../../../../components/form-error'
+import { FormError } from '../../../../../components/form-error'
 
 import { SignUpSchema } from '@/schemas'
 
-import { signUp } from '@/app/(root)/(auth)/sign-up/_server/actions/sign-up'
+import { signUp } from '@/app/(auth)/sign-up/_server/actions/sign-up'
 import { PasswordInput } from '@/components/password-input'
 
 export const SignUpForm = () => {
@@ -51,7 +51,7 @@ export const SignUpForm = () => {
 						toast.success('Check your email', { ...data })
 						break
 					default:
-						toast.success('Failed to sign in.', {
+						toast.error('Failed to sign in.', {
 							description: 'Please try again later',
 						})
 						break

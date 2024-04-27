@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { SignUpForm } from '@/app/(root)/(auth)/sign-up/_components/forms/sign-up-form'
+import { SignUpForm } from '@/app/(auth)/sign-up/_components/forms/sign-up-form'
 import { PageSectionContainer } from '@/components/layout/page-section-container'
 import { WrapperCard } from '../_components/wrapper-card'
 

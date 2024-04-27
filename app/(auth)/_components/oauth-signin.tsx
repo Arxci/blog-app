@@ -6,8 +6,8 @@ import { signIn } from 'next-auth/react'
 
 import { toast } from 'sonner'
 
-import { Icons } from '../../../../components/icons'
-import { Button } from '../../../../components/ui/button'
+import { Icons } from '../../../components/icons'
+import { Button } from '../../../components/ui/button'
 
 import { DEFAULT_SIGNIN_REDIRECT } from '@/routes'
 import { useSearchParams } from 'next/navigation'
@@ -43,38 +43,42 @@ export const OAuthSignIn = () => {
 	}, [searchParams])
 
 	return (
-		<div className="flex items-center w-full gap-x-2">
+		<div className="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-4">
 			<Button
+				aria-label="Sign in with Google"
 				size="lg"
 				variant={'outline'}
-				className="w-full space-x-1"
-				disabled={isLoading === 'google'}
+				className="w-full bg-background sm:w-auto"
+				disabled={isLoading !== null}
 				onClick={() => handleClick('google')}
 			>
 				{isLoading === 'google' ? (
-					<Icons.spinner className="w-4 h-4" />
+					<Icons.spinner
+						className="mr-2 h-4 w-4 animate-spin"
+						aria-hidden="true"
+					/>
 				) : (
-					<>
-						<Icons.google className="h-5 w-5" />
-						<p className="hidden sm:block">Google</p>
-					</>
+					<Icons.google className="mr-2" />
 				)}
+				<span className="sr-only sm:not-sr-only">Google</span>
 			</Button>
 			<Button
+				aria-label="Sign in with Github"
 				size="lg"
 				variant={'outline'}
-				className="w-full space-x-1"
-				disabled={isLoading === 'github'}
+				className="w-full bg-background sm:w-auto"
+				disabled={isLoading !== null}
 				onClick={() => handleClick('github')}
 			>
 				{isLoading === 'github' ? (
-					<Icons.spinner className="w-4 h-4" />
+					<Icons.spinner
+						className="mr-2 h-4 w-4 animate-spin"
+						aria-hidden="true"
+					/>
 				) : (
-					<>
-						<Icons.github className="h-5 w-5" />
-						<p className="hidden sm:block">Google</p>
-					</>
+					<Icons.github className="mr-2" />
 				)}
+				<span className="sr-only sm:not-sr-only">Google</span>
 			</Button>
 		</div>
 	)
