@@ -5,8 +5,13 @@ import { Button } from '../ui/button'
 import { Icons } from '../icons'
 
 import { siteConfig } from '@/config/site'
+import { auth } from '@/auth'
+import { UserButton } from '../user-button'
 
-export const DesktopNav = () => {
+export const DesktopNav = async () => {
+	const session = await auth()
+	const user = session?.user
+
 	return (
 		<div className="hidden lg:flex items-center w-full">
 			<div className="flex items-center">
@@ -32,18 +37,24 @@ export const DesktopNav = () => {
 					))}
 				</ul>
 			</nav>
-			<div className="ml-auto space-x-1">
-				<Button
-					radius="full"
-					variant="link"
-					asChild
-				>
-					<Link href="/sign-in">Sign in</Link>
-				</Button>
-				<Button radius="full">
-					<Link href="/sign-up">Sign up</Link>
-				</Button>
-			</div>
+			{user ? (
+				<div className="ml-auto">
+					<UserButton user={user} />
+				</div>
+			) : (
+				<div className="ml-auto space-x-1">
+					<Button
+						radius="full"
+						variant="link"
+						asChild
+					>
+						<Link href="/sign-in">Sign in</Link>
+					</Button>
+					<Button radius="full">
+						<Link href="/sign-up">Sign up</Link>
+					</Button>
+				</div>
+			)}
 		</div>
 	)
 }

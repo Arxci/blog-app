@@ -4,7 +4,6 @@ import { posts } from '#site/content'
 
 import { sortPosts } from '@/lib/utils'
 import prismaDB from '../../../lib/prisma'
-import { revalidatePath } from 'next/cache'
 
 export async function getPostBySlug({
 	slug,

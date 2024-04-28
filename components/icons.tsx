@@ -17,6 +17,9 @@ import {
 	Eye,
 	EyeOff,
 	Dot,
+	UserRound,
+	Settings,
+	LogOut,
 } from 'lucide-react'
 
 import { FcGoogle } from 'react-icons/fc'
@@ -31,6 +34,24 @@ export interface IconProps {
 export const Icons = {
 	sun: (props: IconProps) => (
 		<Sun
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	logOut: (props: IconProps) => (
+		<LogOut
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	settings: (props: IconProps) => (
+		<Settings
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	user: (props: IconProps) => (
+		<UserRound
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

@@ -20,7 +20,7 @@ import {
 import { Input } from '../../../../../components/ui/input'
 import { Button } from '../../../../../components/ui/button'
 
-import { FormError } from '../../../../../components/form-error'
+import { Icons } from '@/components/icons'
 
 import { SignInSchema } from '@/schemas'
 
@@ -28,7 +28,7 @@ import { signIn } from '@/app/(auth)/sign-in/_server/actions/sign-in'
 import { PasswordInput } from '@/components/password-input'
 
 export const SignInForm = () => {
-	const [isPending, startTransition] = useTransition()
+	const [loading, startTransition] = useTransition()
 
 	const form = useForm<z.infer<typeof SignInSchema>>({
 		resolver: zodResolver(SignInSchema),
@@ -72,6 +72,7 @@ export const SignInForm = () => {
 										type="text"
 										placeholder="rodneymullen180@gmail.com"
 										className="hover:bg-muted"
+										disabled={loading}
 										{...field}
 									/>
 								</FormControl>
@@ -97,6 +98,7 @@ export const SignInForm = () => {
 									<PasswordInput
 										placeholder="**********"
 										autoComplete="current-password"
+										disabled={loading}
 										id={field.name}
 										{...field}
 									/>
@@ -106,13 +108,19 @@ export const SignInForm = () => {
 						)}
 					/>
 				</div>
-				<FormError />
 				<Button
-					disabled={isPending}
+					disabled={loading}
 					type="submit"
 					className="w-full"
 				>
-					Sign in
+					{loading ? (
+						<Icons.spinner
+							className="animate-spin h-4 w-4"
+							aria-hidden="true"
+						/>
+					) : (
+						'Sign in'
+					)}
 				</Button>
 			</form>
 		</Form>

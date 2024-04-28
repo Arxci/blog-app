@@ -21,15 +21,14 @@ import {
 import { Input } from '../../../../../components/ui/input'
 import { Button } from '../../../../../components/ui/button'
 
-import { FormError } from '../../../../../components/form-error'
-
 import { SignUpSchema } from '@/schemas'
 
 import { signUp } from '@/app/(auth)/sign-up/_server/actions/sign-up'
 import { PasswordInput } from '@/components/password-input'
+import { Icons } from '@/components/icons'
 
 export const SignUpForm = () => {
-	const [isPending, startTransition] = useTransition()
+	const [loading, startTransition] = useTransition()
 
 	const form = useForm<z.infer<typeof SignUpSchema>>({
 		resolver: zodResolver(SignUpSchema),
@@ -76,6 +75,7 @@ export const SignUpForm = () => {
 								<FormControl>
 									<Input
 										id={field.name}
+										disabled={loading}
 										autoComplete="name"
 										type="text"
 										placeholder="Rodney Mullen"
@@ -96,6 +96,7 @@ export const SignUpForm = () => {
 								<FormControl>
 									<Input
 										id={field.name}
+										disabled={loading}
 										autoComplete="email"
 										type="text"
 										placeholder="rodneymullen180@gmail.com"
@@ -123,6 +124,7 @@ export const SignUpForm = () => {
 								</div>
 								<FormControl>
 									<PasswordInput
+										disabled={loading}
 										placeholder="**********"
 										autoComplete="current-password"
 										id={field.name}
@@ -134,13 +136,19 @@ export const SignUpForm = () => {
 						)}
 					/>
 				</div>
-				<FormError />
 				<Button
-					disabled={isPending}
+					disabled={loading}
 					type="submit"
 					className="w-full"
 				>
-					Sign up
+					{loading ? (
+						<Icons.spinner
+							className="animate-spin h-4 w-4"
+							aria-hidden="true"
+						/>
+					) : (
+						'Sign Up'
+					)}
 				</Button>
 			</form>
 		</Form>

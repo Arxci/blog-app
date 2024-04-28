@@ -17,9 +17,12 @@ import { Button } from '@/components/ui/button'
 import { Icons } from '../icons'
 
 import { siteConfig } from '@/config/site'
+import { useSession } from 'next-auth/react'
 
 export function MobileNav() {
 	const [open, setOpen] = useState<boolean>(false)
+	const { data: session } = useSession()
+	const user = session?.user
 
 	const toggleOpenHandle = () => {
 		setOpen((prevState) => !prevState)
