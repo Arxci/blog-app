@@ -13,7 +13,7 @@ model Post {
     views       Int       @default(0)
     title       String    @db.Text
     description String?   @db.Text
-    date        DateTime
+    date        String
     published   Boolean
     banner      String
     body        String    @db.Text

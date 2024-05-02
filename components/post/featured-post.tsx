@@ -40,7 +40,7 @@ export const FeaturedPost = ({
 						<dt className="sr-only">Published ON</dt>
 						<dd className="text-sm text-white/80 font-medium flex items-center gap-1">
 							<Icons.calendar />
-							<time dateTime={date.toISOString()}>{formatDate(date)}</time>
+							<time dateTime={date}>{formatDate(date)}</time>
 						</dd>
 					</dl>
 					<Button

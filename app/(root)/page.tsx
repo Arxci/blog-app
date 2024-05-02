@@ -20,7 +20,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
 	return (
 		<main>
-			<PageSectionContainer className="relative w-full mb-14 h-[400px] overflow-hidden lg:rounded-b-lg">
+			<PageSectionContainer className="relative w-full mb-14 h-[400px] overflow-hidden ">
 				<Image
 					fill
 					className="object-cover object-bottom"

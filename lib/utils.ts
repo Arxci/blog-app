@@ -1,14 +1,14 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import prismaDB from './prisma'
 import { Comment, Dislike, Like, Post } from '@prisma/client'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-export function formatDate(input: Date): string {
-	return input.toLocaleDateString('en-us', {
+export function formatDate(input: string | number): string {
+	const date = new Date(input)
+	return date.toLocaleDateString('en-us', {
 		month: 'long',
 		day: 'numeric',
 		year: 'numeric',
@@ -30,10 +30,15 @@ export function handleOAuthError(error: string) {
 	}
 }
 
-export function sortPosts(arr: Post[]): Post[] {
+export function sortPosts(
+	arr: Array<Post & { comments: Comment[]; likes: Like[]; dislikes: Dislike[] }>
+) {
 	return arr.sort((a, b) => {
-		if (a.date > b.date) return -1
-		if (a.date < b.date) return 1
+		const dateOne = new Date(a.date)
+		const dateTwo = new Date(b.date)
+
+		if (dateOne > dateTwo) return -1
+		if (dateOne < dateTwo) return 1
 		return 0
 	})
 }

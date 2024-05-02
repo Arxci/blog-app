@@ -68,7 +68,7 @@ export default async function PostPage({ params }: PostPageProps) {
 							className="flex ml-auto text-sm text-muted-foreground items-center "
 						>
 							<time
-								dateTime={post.date.toISOString()}
+								dateTime={post.date}
 								className=""
 							>
 								{formatDate(post.date)}

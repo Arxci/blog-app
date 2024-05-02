@@ -112,33 +112,7 @@ export function UserButton({ user }: UserButtonProps) {
 							</p>
 						</div>
 					</DropdownMenuLabel>
-					<DropdownMenuSeparator />
-					<DropdownMenuGroup>
-						<DropdownMenuItem
-							asChild
-							className="transition-none"
-						>
-							<Link href="/user">
-								<Icons.user
-									className="mr-2 h-4 w-4"
-									aria-hidden="true"
-								/>
-								Profile
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem
-							asChild
-							className="transition-none"
-						>
-							<Link href="/user/settings">
-								<Icons.settings
-									className="mr-2 h-4 w-4"
-									aria-hidden="true"
-								/>
-								Settings
-							</Link>
-						</DropdownMenuItem>
-					</DropdownMenuGroup>
+
 					<DropdownMenuSeparator />
 					<DropdownMenuItem
 						className="w-full transition-none"

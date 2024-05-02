@@ -55,7 +55,7 @@ export const PostItem = ({
 						className="flex ml-auto text-sm text-muted-foreground items-center "
 					>
 						<time
-							dateTime={date.toISOString()}
+							dateTime={date}
 							className=""
 						>
 							{formatDate(date)}

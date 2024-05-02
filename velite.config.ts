@@ -97,7 +97,15 @@ export default defineConfig({
 						body: post.body,
 						isFeatured: post.isFeatured,
 					},
-					update: {},
+					update: {
+						title: post.title,
+						description: post.description,
+						date: post.date,
+						published: post.published,
+						banner: post.banner,
+						body: post.body,
+						isFeatured: post.isFeatured,
+					},
 					where: { slug: post.slug },
 				})
 			}
