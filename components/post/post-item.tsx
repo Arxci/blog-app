@@ -1,34 +1,39 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { getPostEngagement } from '@/app/_server/actions/post'
+import { useSession } from 'next-auth/react'
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query'
+import { Comment, Dislike, Like, Post } from '@prisma/client'
+
+import { Button } from '../ui/button'
 
 import { PostEngagement } from './post-engagement'
-
-import { auth } from '@/auth'
-
-import { formatDate } from '@/lib/utils'
-import { Button } from '../ui/button'
 import { PostAuthor } from './post-author'
 
-interface PostItemProps {
-	slug: string
-	title: string
-	description?: string
-	date: string
-	banner: string
+import { formatDate } from '@/lib/utils'
+
+type PostItemProps = Post & {
+	likes: Like[]
+	comments: Comment[]
+	dislikes: Dislike[]
+	refetch: (
+		options?: RefetchOptions | undefined
+	) => Promise<QueryObserverResult>
 }
 
-export const PostItem = async ({
+export const PostItem = ({
 	slug,
 	title,
 	description,
 	date,
 	banner,
+	refetch,
+	comments,
+	likes,
+	dislikes,
+	views,
 }: PostItemProps) => {
-	const initialData = await getPostEngagement(slug)
-
-	const session = await auth()
+	const { data: session } = useSession()
 
 	const user = session?.user
 
@@ -50,7 +55,7 @@ export const PostItem = async ({
 						className="flex ml-auto text-sm text-muted-foreground items-center "
 					>
 						<time
-							dateTime={date}
+							dateTime={date.toISOString()}
 							className=""
 						>
 							{formatDate(date)}
@@ -69,11 +74,16 @@ export const PostItem = async ({
 			</div>
 			<div className="mt-2">
 				<PostEngagement
-					initialData={initialData}
+					initialData={{ slug, comments, likes, dislikes, views }}
 					user={user}
-					incrementViewCounter={false}
+					isDisplay={true}
+					refetchPosts={refetch}
 				/>
 			</div>
 		</div>
 	)
 }
+
+/*
+
+*/

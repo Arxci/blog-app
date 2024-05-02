@@ -1,8 +1,6 @@
 'use server'
 
-import { posts } from '#site/content'
-
-import { sortPosts } from '@/lib/utils'
+import { rankPosts } from '@/lib/utils'
 import prismaDB from '../../../lib/prisma'
 
 export async function getPostBySlug({
@@ -22,7 +20,6 @@ export async function getPostEngagement(slug: string) {
 	return await prismaDB.post.findUnique({
 		where: { slug },
 		select: {
-			id: true,
 			slug: true,
 			views: true,
 			likes: true,
@@ -30,10 +27,6 @@ export async function getPostEngagement(slug: string) {
 			dislikes: true,
 		},
 	})
-}
-
-export async function getPosts() {
-	return await prismaDB.post.findMany()
 }
 
 export async function likePost(userId: string, slug: string) {
@@ -124,13 +117,23 @@ export async function incrementView(slug: string) {
 	})
 }
 
-export async function getFilteredPosts(
-	currentFilter: 'popular' | 'most-viewed' | 'new'
-) {
-	return await sortPosts(
-		posts.filter((post) => post.published),
-		currentFilter
-	).then((e) => {
-		return e.slice(0, 4)
+export async function getPosts() {
+	const posts = await prismaDB.post.findMany({
+		orderBy: {
+			date: 'desc',
+		},
+		include: {
+			likes: true,
+			dislikes: true,
+			comments: true,
+		},
 	})
+
+	const popularPosts = rankPosts(posts)
+
+	const newPosts = posts
+
+	const mostViewedPosts = posts.sort((a, b) => b.views - a.views)
+
+	return { popularPosts, newPosts, mostViewedPosts }
 }

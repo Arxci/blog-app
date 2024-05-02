@@ -8,14 +8,21 @@ datasource db {
 }
 
 model Post {
-    id        String    @id @default(cuid())
-    slug      String    @unique
-    views     Int       @default(0)
-    comments  Comment[]
-    likes     Like[]
-    dislikes  Dislike[]
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
+    id          String    @id @default(cuid())
+    slug        String    @unique
+    views       Int       @default(0)
+    title       String    @db.Text
+    description String?   @db.Text
+    date        DateTime
+    published   Boolean
+    banner      String
+    body        String    @db.Text
+    isFeatured  Boolean
+    comments    Comment[]
+    likes       Like[]
+    dislikes    Dislike[]
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
 
     @@map("posts")
 }

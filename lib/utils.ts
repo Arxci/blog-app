@@ -1,16 +1,14 @@
-import { Post } from '#site/content'
-
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import prismaDB from './prisma'
+import { Comment, Dislike, Like, Post } from '@prisma/client'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-export function formatDate(input: string | number): string {
-	const date = new Date(input)
-	return date.toLocaleDateString('en-us', {
+export function formatDate(input: Date): string {
+	return input.toLocaleDateString('en-us', {
 		month: 'long',
 		day: 'numeric',
 		year: 'numeric',
@@ -32,17 +30,38 @@ export function handleOAuthError(error: string) {
 	}
 }
 
-export async function sortPosts(
-	arr: Post[],
-	filter: 'popular' | 'new' | 'most-viewed',
-	search?: string
-): Promise<Post[]> {
-	const sortedArr = arr.sort((a, b) => {
+export function sortPosts(arr: Post[]): Post[] {
+	return arr.sort((a, b) => {
 		if (a.date > b.date) return -1
 		if (a.date < b.date) return 1
 		return 0
 	})
+}
 
+export function rankPosts(
+	posts: Array<
+		Post & { comments: Comment[]; likes: Like[]; dislikes: Dislike[] }
+	>
+) {
+	const ratings = posts.map((post) => {
+		const { comments, likes, dislikes, slug } = post
+
+		return {
+			rating: likes.length - dislikes.length + comments.length,
+			slug,
+		}
+	})
+
+	ratings.sort((a, b) => b.rating - a.rating)
+
+	return ratings.map((rating) => {
+		const index = posts.findIndex((post) => post.slug === rating.slug)
+
+		return posts[index]
+	})
+}
+
+/*
 	const searchedPosts = sortedArr.filter((sortedPost) => {
 		if (!search) return true
 
@@ -60,54 +79,4 @@ export async function sortPosts(
 
 		return false
 	})
-
-	const rankedPosts = await rankPosts(searchedPosts, 'desc')
-
-	switch (filter) {
-		case 'popular':
-			return rankedPosts.map((post) => {
-				const index = searchedPosts.findIndex(
-					(sortedPost) => sortedPost.slug === post.slug
-				)
-
-				return searchedPosts[index]
-			})
-		case 'new':
-			return searchedPosts
-
-		case 'most-viewed':
-			const temp = rankedPosts.sort((a, b) => b.views - a.views)
-
-			return temp.map((post) => {
-				const index = searchedPosts.findIndex(
-					(sortedPost) => sortedPost.slug === post.slug
-				)
-				return searchedPosts[index]
-			})
-	}
-}
-
-async function rankPosts(arr: Post[], orderBy: 'asc' | 'desc') {
-	const posts = await prismaDB.post.findMany({
-		include: {
-			likes: true,
-			dislikes: true,
-			comments: true,
-		},
-	})
-
-	const ratings = arr.map((item) => {
-		const index = posts.findIndex((post) => post.slug === item.slug)
-
-		const { comments, likes, dislikes, views, slug } = posts[index]
-
-		return {
-			rating: likes.length - dislikes.length + comments.length,
-			views,
-			slug: slug,
-		}
-	})
-
-	if (orderBy == 'desc') return ratings.sort((a, b) => b.rating - a.rating)
-	return ratings.sort((a, b) => a.rating - b.rating)
-}
+*/

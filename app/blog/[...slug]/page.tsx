@@ -5,12 +5,13 @@ import { posts } from '#site/content'
 
 import { MDXContent } from '@/components/mdx/mdx-components'
 
-import { getPostEngagement } from '@/app/_server/actions/post'
+import { getPostBySlug, getPostEngagement } from '@/app/_server/actions/post'
 import { formatDate } from '@/lib/utils'
 
 import { PostEngagement } from '@/components/post/post-engagement'
-import { auth } from '@/auth'
 import { PostAuthor } from '@/components/post/post-author'
+
+import { auth } from '@/auth'
 
 interface PostPageProps {
 	params: {
@@ -20,7 +21,11 @@ interface PostPageProps {
 
 async function getPostFromParams(params: PostPageProps['params']) {
 	const slug = params?.slug?.join('/')
-	const post = posts.find((post) => post.slugAsParams === slug)
+
+	const post = await getPostBySlug({
+		slug: `blog/${slug}`,
+		include: { comments: true, likes: true, dislikes: true },
+	})
 
 	return post
 }
@@ -45,7 +50,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
 	return (
 		<div className="max-w-3xl space-y-4 mx-auto w-screen">
-			<div className="relative aspect-video lg:aspect-auto lg:h-[350px] overflow-hidden md:rounded-b-lg">
+			<div className="relative aspect-video overflow-hidden ">
 				<Image
 					src={post.banner}
 					alt="Banner"
@@ -63,7 +68,7 @@ export default async function PostPage({ params }: PostPageProps) {
 							className="flex ml-auto text-sm text-muted-foreground items-center "
 						>
 							<time
-								dateTime={post.date}
+								dateTime={post.date.toISOString()}
 								className=""
 							>
 								{formatDate(post.date)}
@@ -83,6 +88,7 @@ export default async function PostPage({ params }: PostPageProps) {
 						user={user}
 					/>
 				</div>
+
 				<hr className="my-4 pb-6" />
 				<MDXContent code={post.body} />
 			</article>

@@ -86,7 +86,17 @@ export default defineConfig({
 
 			if (post) {
 				await prismaDB.post.upsert({
-					create: { id: post.slug, slug: post.slug },
+					create: {
+						id: post.slug,
+						slug: post.slug,
+						title: post.title,
+						description: post.description,
+						date: post.date,
+						published: post.published,
+						banner: post.banner,
+						body: post.body,
+						isFeatured: post.isFeatured,
+					},
 					update: {},
 					where: { slug: post.slug },
 				})

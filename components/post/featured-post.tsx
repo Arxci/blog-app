@@ -7,13 +7,9 @@ import { Icons } from '../icons'
 
 import { formatDate } from '@/lib/utils'
 
-interface FeaturedPostProps {
-	slug: string
-	title: string
-	description?: string
-	date: string
-	banner: string
-}
+import { Post } from '@prisma/client'
+
+type FeaturedPostProps = Post
 
 export const FeaturedPost = ({
 	slug,
@@ -44,7 +40,7 @@ export const FeaturedPost = ({
 						<dt className="sr-only">Published ON</dt>
 						<dd className="text-sm text-white/80 font-medium flex items-center gap-1">
 							<Icons.calendar />
-							<time dateTime={date}>{formatDate(date)}</time>
+							<time dateTime={date.toISOString()}>{formatDate(date)}</time>
 						</dd>
 					</dl>
 					<Button

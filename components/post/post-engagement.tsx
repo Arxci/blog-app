@@ -5,8 +5,19 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 
 import { User } from 'next-auth'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import {
+	QueryObserverResult,
+	RefetchOptions,
+	useMutation,
+	useQuery,
+} from '@tanstack/react-query'
 import { Comment, Dislike, Like } from '@prisma/client'
+
+import { Toggle, toggleVariants } from '../ui/toggle'
+
+import { Icons } from '../icons'
+
+import { cn } from '@/lib/utils'
 
 import {
 	dislikePost,
@@ -15,14 +26,8 @@ import {
 	likePost,
 } from '@/app/_server/actions/post'
 
-import { Icons } from '../icons'
-import { Toggle, toggleVariants } from '../ui/toggle'
-
-import { cn } from '@/lib/utils'
-
 interface PostEngagementProps {
 	initialData: {
-		id: string
 		slug: string
 		views: number
 		comments: Comment[]
@@ -30,13 +35,17 @@ interface PostEngagementProps {
 		dislikes: Dislike[]
 	} | null
 	user: User | undefined
-	incrementViewCounter?: boolean
+	isDisplay?: boolean
+	refetchPosts?: (
+		options?: RefetchOptions | undefined
+	) => Promise<QueryObserverResult>
 }
 
 export const PostEngagement = ({
 	initialData,
 	user,
-	incrementViewCounter = true,
+	isDisplay = false,
+	refetchPosts,
 }: PostEngagementProps) => {
 	const { data, isLoading, refetch } = useQuery({
 		queryKey: ['post', initialData?.slug],
@@ -54,17 +63,21 @@ export const PostEngagement = ({
 					dislikePost(user?.id || '', initialData?.slug || '')
 					break
 				case 'VIEW':
-					if (incrementViewCounter) {
-						incrementView(initialData?.slug || '')
-					}
-					break
+					incrementView(initialData?.slug || '')
+
+					return
+			}
+			if (isDisplay && refetchPosts) {
+				refetchPosts()
 			}
 		},
 		onSuccess: () => refetch(),
 	})
 
 	useEffect(() => {
-		mutate('VIEW')
+		if (!isDisplay) {
+			mutate('VIEW')
+		}
 	}, [mutate])
 
 	if (!data || isLoading) {

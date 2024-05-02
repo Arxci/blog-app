@@ -1,26 +1,25 @@
 import Image from 'next/image'
 
-import { Separator } from '@/components/ui/separator'
-
 import { SearchInput } from '@/components/search-input'
-import { TabFilters } from '@/app/(root)/_components/tab-filters'
 import { PageSectionContainer } from '@/components/layout/page-section-container'
 
 import { DisplayPosts } from './_components/display-posts'
-import { Suspense } from 'react'
-import { DisplayPostsLoading } from './_components/loading/display-posts-loading'
+
+import { getPosts } from '../_server/actions/post'
 
 interface HomePageProps {
 	searchParams: {
-		filter: 'popular' | 'most-viewed' | 'new'
+		tab: 'popular' | 'most-viewed' | 'new'
 	}
 }
 
-export default function HomePage({ searchParams }: HomePageProps) {
-	const currentFilter = searchParams?.filter || 'popular'
+export default async function HomePage({ searchParams }: HomePageProps) {
+	const currentTab = searchParams?.tab || 'popular'
+
+	const initialData = await getPosts()
 
 	return (
-		<main key={Math.random()}>
+		<main>
 			<PageSectionContainer className="relative w-full mb-14 h-[400px] overflow-hidden lg:rounded-b-lg">
 				<Image
 					fill
@@ -48,17 +47,10 @@ export default function HomePage({ searchParams }: HomePageProps) {
 				</div>
 			</PageSectionContainer>
 			<PageSectionContainer>
-				<h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-4 font-bold">
-					Stay Ahead of the Curve: Explore the Latest in Popular, New, and
-					Trending Posts!
-				</h2>
-				<div className="flex items-center gap-2 md:gap-4 h-14">
-					<TabFilters currentFilter={currentFilter} />
-				</div>
-				<Separator className="mb-4 mt-1" />
-				<Suspense fallback={<DisplayPostsLoading />}>
-					<DisplayPosts currentFilter={currentFilter} />
-				</Suspense>
+				<DisplayPosts
+					initialData={initialData}
+					initialTab={currentTab}
+				/>
 			</PageSectionContainer>
 		</main>
 	)
