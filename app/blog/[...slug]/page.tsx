@@ -51,7 +51,7 @@ export default async function PostPage({ params }: PostPageProps) {
 	return (
 		<div className="container space-y-4 w-screen">
 			<article className="overflow-x-hidden">
-				<div className="space-y-4 my-8">
+				<div className="space-y-4 my-12 mb-7">
 					<h1 className="mb-2 font-black text-3xl md:text-4xl lg:text-5xl">
 						{post.title}
 					</h1>
@@ -74,21 +74,22 @@ export default async function PostPage({ params }: PostPageProps) {
 							</time>
 						</div>
 					</div>
-					<PostEngagement
-						initialData={initialData}
-						user={user}
-					/>
-					<div className="relative aspect-video overflow-hidden">
-						<Image
-							src={post.banner}
-							alt="Banner"
-							fill
-							priority
-							className="object-cover"
+					<div>
+						<PostEngagement
+							initialData={initialData}
+							user={user}
 						/>
 					</div>
 				</div>
-
+				<div className="relative aspect-video overflow-hidden">
+					<Image
+						src={post.banner}
+						alt="Banner"
+						fill
+						priority
+						className="object-cover"
+					/>
+				</div>
 				<MDXContent code={post.body} />
 			</article>
 		</div>

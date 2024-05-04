@@ -7,10 +7,8 @@ export const PostEngagementLoading = () => {
 				<Skeleton className="h-full rounded-l-full rounded-r-none w-12 border-input border" />
 				<Skeleton className="h-full rounded-r-full rounded-l-none w-12 border-input border" />
 			</div>
-
-			<Skeleton className="h-full rounded-full w-12 border-input border" />
-
-			<Skeleton className="h-full rounded-full w-12 border-input border" />
+			<Skeleton className="h-full rounded-full w-14 border-input border" />
+			<Skeleton className="h-full rounded-full w-14 border-input border" />
 		</div>
 	)
 }

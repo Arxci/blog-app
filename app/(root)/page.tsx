@@ -6,6 +6,7 @@ import { PageSectionContainer } from '@/components/layout/page-section-container
 import { DisplayPosts } from './_components/display-posts'
 
 import { getPosts } from '../_server/actions/post'
+import Loading from './loading'
 
 interface HomePageProps {
 	searchParams: {

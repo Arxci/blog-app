@@ -12,8 +12,10 @@ export const PostItemLoading = () => {
 					<Skeleton className="ml-auto h-4 w-20 rounded-full border-input border" />
 				</div>
 				<Skeleton className="w-full h-8 rounded-full border-input border" />
-				<Skeleton className="w-full h-4 rounded-full border-input border" />
-				<Skeleton className="w-full h-4 rounded-full border-input border" />
+				<div className="space-y-1">
+					<Skeleton className="w-full h-4 rounded-full border-input border" />
+					<Skeleton className="w-full h-4 rounded-full border-input border" />
+				</div>
 			</div>
 			<div className="mt-2">
 				<PostEngagementLoading />

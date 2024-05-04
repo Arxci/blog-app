@@ -64,11 +64,14 @@ export const DisplayPosts = ({
 		onSuccess: () => refetch(),
 	})
 
-	if (!data || isPending || isFetching) return <DisplayPostsLoading />
+	if (!data || isPending || isFetching)
+		return <DisplayPostsLoading currentSearch={currentSearch} />
 
 	const totalPages = Math.ceil(data[0] / POSTS_PER_PAGE)
 
 	const changePageHandle = (newPage: number) => {
+		document.body.scrollTop = 0 // For Safari
+		document.documentElement.scrollTop = 0
 		mutate({ newPage })
 	}
 
