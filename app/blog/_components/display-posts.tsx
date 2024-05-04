@@ -40,11 +40,11 @@ export const DisplayPosts = ({
 	const [currentSearch, setCurrentSearch] =
 		React.useState<string>(initialSearch)
 
-	const { data, refetch, isFetching } = useQuery({
+	const { data, refetch } = useQuery({
 		queryKey: ['blog', 'posts'],
 		queryFn: async () =>
 			await getPostsBySearch({
-				search: currentSearch.toLocaleLowerCase(),
+				search: currentSearch,
 				skip: POSTS_PER_PAGE * (currentPage - 1),
 				take: POSTS_PER_PAGE * currentPage,
 			}),
@@ -64,7 +64,7 @@ export const DisplayPosts = ({
 		onSuccess: () => refetch(),
 	})
 
-	if (!data || isPending || isFetching)
+	if (!data || isPending)
 		return <DisplayPostsLoading currentSearch={currentSearch} />
 
 	const totalPages = Math.ceil(data[0] / POSTS_PER_PAGE)
@@ -81,8 +81,8 @@ export const DisplayPosts = ({
 
 	if (data[1]?.length === 0) {
 		return (
-			<>
-				<div className="mt-8 flex flex-col md:flex-row text-center gap-4 items-center justify-center">
+			<div className="h-full flex items-center justify-center">
+				<div className="flex flex-col md:flex-row text-center gap-4 items-center justify-center">
 					<p>Nothing found. Adjust your search and try again.</p>
 					<Button
 						radius="full"
@@ -99,7 +99,7 @@ export const DisplayPosts = ({
 						)}
 					</Button>
 				</div>
-			</>
+			</div>
 		)
 	}
 

@@ -6,10 +6,8 @@ export default function Loading() {
 		<main className="container mx-w-4xl py-6 lg:py-10">
 			<div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
 				<div className="flex-1 space-y-4">
-					<h1 className="inline-block font-black text-4xl lg:text-5xl">Blog</h1>
-					<p className="text-xl text-muted-foreground">
-						Exploring web development, one post at a time!
-					</p>
+					<Skeleton className="rounded-full h-12 w-32" />
+					<Skeleton className="rounded-full h-7 w-full max-w-sm" />
 				</div>
 			</div>
 

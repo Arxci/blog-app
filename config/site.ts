@@ -44,7 +44,7 @@ export const siteConfig = {
 	socials: [
 		{
 			name: 'Portfolio',
-			href: '/',
+			href: 'https://garretthumbert.org/',
 			icon: Icons['monitor'],
 		},
 		{

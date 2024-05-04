@@ -119,7 +119,7 @@ export const DisplayPosts = ({
 				/>
 			</TabsList>
 			<Separator className="mb-4 mt-4" />
-			<div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10 pb-6">
+			<div className="grid gap-10 grid-cols-1 lg:grid-cols-3  pb-6">
 				<div className="col-span-2 space-y-6">
 					<TabsContent value="popular">
 						<PostList

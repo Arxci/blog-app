@@ -154,11 +154,13 @@ export async function getPostsBySearch({
 					{
 						title: {
 							contains: search,
+							mode: 'insensitive',
 						},
 					},
 					{
 						description: {
 							contains: search,
+							mode: 'insensitive',
 						},
 					},
 				],
@@ -170,11 +172,13 @@ export async function getPostsBySearch({
 					{
 						title: {
 							contains: search,
+							mode: 'insensitive',
 						},
 					},
 					{
 						description: {
 							contains: search,
+							mode: 'insensitive',
 						},
 					},
 				],

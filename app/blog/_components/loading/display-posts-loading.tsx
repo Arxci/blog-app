@@ -12,7 +12,7 @@ export const DisplayPostsLoading = ({
 	return (
 		<>
 			<div className="mt-8">
-				<SearchInput defaultValue={currentSearch} />
+				<Skeleton className="h-10 w-full rounded-full" />
 			</div>
 			<hr className="mt-4" />
 			<ul className="grid md:grid-cols-2 gap-4 mt-8">

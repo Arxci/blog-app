@@ -1,8 +1,11 @@
-import { siteConfig } from '@/config/site'
 import Link from 'next/link'
+
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
-import { Icons } from '../icons'
+
+import { ThemeToggle } from '../theme-toggle'
+
+import { siteConfig } from '@/config/site'
 
 export const MainFooter = () => {
 	return (
@@ -44,19 +47,28 @@ export const MainFooter = () => {
 						</Button>
 					</form>
 
-					<ul className="space-x-2">
+					<ul className="flex space-x-2">
 						{siteConfig.socials.map((social) => (
-							<Button
-								key={social.name}
-								size="icon"
-								variant="outline"
-								radius="full"
-								aria-label={social.name}
-								asChild
-							>
-								<Link href={social.href}>{<social.icon />}</Link>
-							</Button>
+							<li key={social.name}>
+								<Button
+									size="icon"
+									variant="outline"
+									radius="full"
+									aria-label={social.name}
+									asChild
+								>
+									<Link
+										href={social.href}
+										target="_"
+									>
+										{<social.icon />}
+									</Link>
+								</Button>
+							</li>
 						))}
+						<li>
+							<ThemeToggle />
+						</li>
 					</ul>
 				</div>
 			</div>
