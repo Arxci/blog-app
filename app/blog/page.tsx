@@ -1,8 +1,6 @@
 import { DisplayPosts } from './_components/display-posts'
-import { SearchInput } from '../../components/search-input'
 
 import { getPostsBySearch } from '../_server/actions/post'
-import Loading from './loading'
 
 interface BlogPageProps {
 	searchParams: {
