@@ -137,3 +137,58 @@ export async function getPosts() {
 
 	return { popularPosts, newPosts, mostViewedPosts }
 }
+
+export async function getPostsBySearch({
+	search,
+	skip,
+	take,
+}: {
+	search: string
+	skip?: number
+	take?: number
+}) {
+	return await prisma?.$transaction([
+		prisma.post.count({
+			where: {
+				OR: [
+					{
+						title: {
+							contains: search,
+						},
+					},
+					{
+						description: {
+							contains: search,
+						},
+					},
+				],
+			},
+		}),
+		prismaDB.post.findMany({
+			where: {
+				OR: [
+					{
+						title: {
+							contains: search,
+						},
+					},
+					{
+						description: {
+							contains: search,
+						},
+					},
+				],
+			},
+			skip,
+			take,
+			orderBy: {
+				date: 'desc',
+			},
+			include: {
+				likes: true,
+				dislikes: true,
+				comments: true,
+			},
+		}),
+	])
+}

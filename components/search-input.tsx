@@ -11,8 +11,14 @@ import { Icons } from './icons'
 
 export const SearchInput = ({
 	defaultValue = '',
+	onSubmit,
+	onClear,
+	isLoading,
 }: {
 	defaultValue?: string
+	onSubmit?: (data: string) => void
+	onClear?: (data: string) => void
+	isLoading?: boolean
 }) => {
 	const [search, setSearch] = useState<string>(defaultValue)
 	const router = useRouter()
@@ -24,13 +30,21 @@ export const SearchInput = ({
 	const clearInputHandle = () => {
 		setSearch('')
 
-		router.push('/blog?search=')
+		if (!onClear) {
+			router.push('/blog?search=')
+		} else {
+			onClear('')
+		}
 	}
 
 	const submitFormHandle = (e: FormEvent) => {
 		e.preventDefault()
 
-		router.push('/blog?search=' + search)
+		if (!onSubmit) {
+			router.push('/blog?search=' + search)
+		} else {
+			onSubmit(search)
+		}
 	}
 
 	return (
@@ -75,8 +89,16 @@ export const SearchInput = ({
 								type="submit"
 								radius="full"
 								className="sm:px-6"
+								disabled={isLoading}
 							>
-								Search
+								{isLoading ? (
+									<Icons.spinner
+										className="animate-spin h-4 w-4"
+										aria-hidden="true"
+									/>
+								) : (
+									'Search'
+								)}
 							</Button>
 						</div>
 					</div>

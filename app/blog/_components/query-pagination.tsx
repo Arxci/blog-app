@@ -13,25 +13,18 @@ import {
 interface QueryPaginationProps {
 	totalPages: number
 	className?: string
+	currentPage: number
+	onPageChanged: (newPage: number) => void
 }
 
 export function QueryPagination({
 	totalPages,
 	className,
+	currentPage,
+	onPageChanged,
 }: QueryPaginationProps) {
-	const pathname = usePathname()
-	const searchParams = useSearchParams()
-
-	const currentPage = Number(searchParams.get('page')) || 1
-
 	const prevPage = currentPage - 1
 	const nextPage = currentPage + 1
-
-	const createPageURL = (pageNumber: number | string) => {
-		const params = new URLSearchParams(searchParams)
-		params.set('page', pageNumber.toString())
-		return `${pathname}?${params.toString()}`
-	}
 
 	return (
 		<Pagination className={className}>
@@ -39,43 +32,19 @@ export function QueryPagination({
 				<PaginationItem>
 					<PaginationPrevious
 						isActive={prevPage >= 1}
-						href={createPageURL(prevPage)}
+						className="cursor-pointer"
+						onClick={() => onPageChanged(prevPage)}
 					/>
 				</PaginationItem>
 
 				<PaginationItem>
 					<PaginationNext
 						isActive={nextPage <= totalPages}
-						className=""
-						href={createPageURL(nextPage)}
+						className="cursor-pointer"
+						onClick={() => onPageChanged(nextPage)}
 					/>
 				</PaginationItem>
 			</PaginationContent>
 		</Pagination>
 	)
 }
-
-const PaginationLinkItem = ({
-	currentPage,
-	index,
-	createPageURL,
-}: {
-	currentPage: number
-	index: number
-	createPageURL: (pageNumber: number) => string | undefined
-}) => {
-	return (
-		<PaginationItem>
-			<PaginationLink
-				isActive={currentPage === index}
-				href={createPageURL(index)}
-			>
-				{index}
-			</PaginationLink>
-		</PaginationItem>
-	)
-}
-
-/*
-
-*/

@@ -85,7 +85,7 @@ export const DisplayPosts = ({
 	const { data, refetch } = useQuery({
 		queryKey: ['posts'],
 		queryFn: async () => await getPosts(),
-		initialData: initialData,
+		initialData,
 	})
 
 	if (!data) return

@@ -1,7 +1,7 @@
-import { Suspense } from 'react'
 import { DisplayPosts } from './_components/display-posts'
-import { DisplayPostsLoading } from './_components/loading/display-posts-loading'
 import { SearchInput } from '../../components/search-input'
+
+import { getPostsBySearch } from '../_server/actions/post'
 
 interface BlogPageProps {
 	searchParams: {
@@ -10,9 +10,17 @@ interface BlogPageProps {
 	}
 }
 
-export default function BlogPage({ searchParams }: BlogPageProps) {
-	const currentPage = Number(searchParams?.page) || 1
-	const currentSearch = searchParams?.search || ''
+const POSTS_PER_PAGE = 6
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+	const initialPage = Number(searchParams?.page) || 1
+	const initialSearch = searchParams?.search || ''
+
+	const initialData = await getPostsBySearch({
+		search: initialSearch.toLocaleLowerCase(),
+		skip: POSTS_PER_PAGE * (initialPage - 1),
+		take: POSTS_PER_PAGE * initialPage,
+	})
 
 	return (
 		<main className="container mx-w-4xl py-6 lg:py-10">
@@ -23,20 +31,13 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
 						Exploring web development, one post at a time!
 					</p>
 				</div>
-				<div className="max-w-md w-full mt-auto">
-					<SearchInput defaultValue={currentSearch} />
-				</div>
 			</div>
-			<hr className="mt-8" />
+
+			<DisplayPosts
+				initialData={initialData}
+				initialPage={initialPage}
+				initialSearch={initialSearch.toLocaleLowerCase()}
+			/>
 		</main>
 	)
 }
-
-/*
-			<Suspense fallback={<DisplayPostsLoading />}>
-				<DisplayPosts
-					currentPage={currentPage}
-					currentSearch={currentSearch}
-				/>
-			</Suspense>
-*/
