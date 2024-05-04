@@ -20,10 +20,13 @@ import {
 	UserRound,
 	Settings,
 	LogOut,
+	Monitor,
 } from 'lucide-react'
 
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
+import { FaLinkedinIn } from 'react-icons/fa'
+import { FaTwitter } from 'react-icons/fa'
 
 import { cn } from '@/lib/utils'
 
@@ -34,6 +37,24 @@ export interface IconProps {
 export const Icons = {
 	sun: (props: IconProps) => (
 		<Sun
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	monitor: (props: IconProps) => (
+		<Monitor
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	twitter: (props: IconProps) => (
+		<FaTwitter
+			{...props}
+			className={cn('w-4 h-4', props.className)}
+		/>
+	),
+	linkedIn: (props: IconProps) => (
+		<FaLinkedinIn
 			{...props}
 			className={cn('w-4 h-4', props.className)}
 		/>

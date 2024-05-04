@@ -2,13 +2,15 @@ import type { Metadata, Viewport } from 'next'
 
 import { Toaster } from '@/components/ui/sonner'
 
+import { Providers } from '@/app/_helpers/providers/providers'
+import { MainHeader } from '@/components/layout/main-header'
+import { MainFooter } from '@/components/layout/main-footser'
+
 import { siteConfig } from '@/config/site'
 import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 
 import '@/styles/globals.css'
-import { Providers } from '@/app/_helpers/providers/providers'
-import { MainHeader } from '@/components/layout/main-header'
 
 export const metadata: Metadata = {
 	title: siteConfig.name,
@@ -34,15 +36,16 @@ export default function RootLayout({
 		>
 			<body
 				className={cn(
-					'min-h-screen bg-background text-foreground antialiased ',
+					'min-h-screen bg-background text-foreground antialiased dark',
 					fontSans.variable
 				)}
 			>
 				<Providers>
 					<Toaster />
-					<div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
+					<div className="grid grid-rows-[auto_1fr_auto] ">
 						<MainHeader />
-						{children}
+						<div className="min-h-screen">{children}</div>
+						<MainFooter />
 					</div>
 				</Providers>
 			</body>

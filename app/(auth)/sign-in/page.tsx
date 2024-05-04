@@ -6,7 +6,7 @@ import { WrapperCard } from '../_components/wrapper-card'
 
 export default function SignInPage() {
 	return (
-		<main className="py-8">
+		<main className="flex h-full items-center">
 			<PageSectionContainer>
 				<WrapperCard
 					title={'Sign in'}

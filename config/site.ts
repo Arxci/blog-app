@@ -1,3 +1,5 @@
+import { Icons } from '@/components/icons'
+
 export const siteConfig = {
 	name: 'Blog App',
 	description: 'Blog app created with NextJS',
@@ -15,6 +17,45 @@ export const siteConfig = {
 		{
 			name: 'About',
 			href: '/about',
+		},
+	],
+	siteMap: [
+		{
+			name: 'Home',
+			href: '/',
+		},
+		{
+			name: 'Blog',
+			href: '/blog',
+		},
+		{
+			name: 'About',
+			href: '/about',
+		},
+		{
+			name: 'Sign Up',
+			href: '/sign-up',
+		},
+		{
+			name: 'Sign In',
+			href: '/sign-in',
+		},
+	],
+	socials: [
+		{
+			name: 'Portfolio',
+			href: '/',
+			icon: Icons['monitor'],
+		},
+		{
+			name: 'LinkedIn',
+			href: '#',
+			icon: Icons['linkedIn'],
+		},
+		{
+			name: 'Twitter',
+			href: '#',
+			icon: Icons['twitter'],
 		},
 	],
 }
