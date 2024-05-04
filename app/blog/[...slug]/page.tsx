@@ -49,23 +49,22 @@ export default async function PostPage({ params }: PostPageProps) {
 	const initialData = await getPostEngagement(post.slug)
 
 	return (
-		<div className="max-w-3xl space-y-4 mx-auto w-screen">
-			<div className="relative aspect-video overflow-hidden ">
-				<Image
-					src={post.banner}
-					alt="Banner"
-					fill
-					priority
-					className="object-cover"
-				/>
-			</div>
-			<article className="container overflow-x-hidden">
-				<div className="space-y-4 ">
-					<div className="flex items-center ">
+		<div className="container space-y-4 w-screen">
+			<article className="overflow-x-hidden">
+				<div className="space-y-4 my-8">
+					<h1 className="mb-2 font-black text-3xl md:text-4xl lg:text-5xl">
+						{post.title}
+					</h1>
+					{post.description ? (
+						<p className="text-lg mt-0 text-muted-foreground">
+							{post.description}
+						</p>
+					) : null}
+					<div className="flex items-center space-x-2">
 						<PostAuthor />
 						<div
 							aria-label="Published on"
-							className="flex ml-auto text-sm text-muted-foreground items-center "
+							className="flex text-sm text-muted-foreground items-center "
 						>
 							<time
 								dateTime={post.date}
@@ -75,21 +74,21 @@ export default async function PostPage({ params }: PostPageProps) {
 							</time>
 						</div>
 					</div>
-					<h1 className="mb-2 font-black text-3xl md:text-4xl lg:text-5xl">
-						{post.title}
-					</h1>
-					{post.description ? (
-						<p className="text-lg mt-0 text-muted-foreground">
-							{post.description}
-						</p>
-					) : null}
 					<PostEngagement
 						initialData={initialData}
 						user={user}
 					/>
+					<div className="relative aspect-video overflow-hidden">
+						<Image
+							src={post.banner}
+							alt="Banner"
+							fill
+							priority
+							className="object-cover"
+						/>
+					</div>
 				</div>
 
-				<hr className="my-4 pb-6" />
 				<MDXContent code={post.body} />
 			</article>
 		</div>

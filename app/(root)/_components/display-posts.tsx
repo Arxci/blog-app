@@ -180,7 +180,7 @@ const HomeTabTrigger: React.FC<HomeTabTriggerProps> = ({
 	return (
 		<TabsTrigger
 			value={value}
-			className="relative px-2 sm:px-3 py-2 rounded-full text-muted-foreground  flex gap-1 transition-none "
+			className="relative px-2 sm:px-3 rounded-full text-muted-foreground flex gap-1 transition-none "
 		>
 			<Icon isActive={isActive} />
 			<span className="z-10 relative font-bold ">{label}</span>
@@ -201,7 +201,7 @@ const PostList = ({
 }) => {
 	return (
 		<ul className="flex flex-col gap-4 mb-6 lg:mb-0 ">
-			{list.map((post) => (
+			{list.slice(0, 5).map((post) => (
 				<li key={post.slug}>
 					<PostItem
 						{...post}

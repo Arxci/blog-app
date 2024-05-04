@@ -129,11 +129,11 @@ export async function getPosts() {
 		},
 	})
 
-	const newPosts = structuredClone(posts).slice(0, 5)
+	const newPosts = structuredClone(posts)
 
-	const popularPosts = rankPosts(posts).slice(0, 5)
+	const popularPosts = rankPosts(posts)
 
-	const mostViewedPosts = posts.sort((a, b) => b.views - a.views).slice(0, 5)
+	const mostViewedPosts = posts.sort((a, b) => b.views - a.views)
 
 	return { popularPosts, newPosts, mostViewedPosts }
 }
