@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { PostItem } from '@/components/post/post-item'
 import { QueryPagination } from './query-pagination'
 
-import Link from 'next/link'
 import { getPostsBySearch } from '@/app/_server/actions/post'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Comment, Dislike, Like, Post } from '@prisma/client'
@@ -64,8 +63,7 @@ export const DisplayPosts = ({
 		onSuccess: () => refetch(),
 	})
 
-	if (!data || isPending)
-		return <DisplayPostsLoading currentSearch={currentSearch} />
+	if (!data) return
 
 	const totalPages = Math.ceil(data[0] / POSTS_PER_PAGE)
 
